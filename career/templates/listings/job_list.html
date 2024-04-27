@@ -1,16 +1,18 @@
+{% extends "base.html" %}
 
 {% block content %}
-<h2>Job Listings</h2>
-<ul>
-  {% for job in object_list %}
-  <li>
-    <h3>{{ job.title }}</h3>
-    <p>{{ job.description }}</p>
-  </li>
-  {% endfor %}
-</ul>
-
-{% if is_paginated %}
-<!-- Pagination logic here -->
-{% endif %}
+<div class="container mt-3">
+    <h2>Job Listings</h2>
+    <div class="list-group">
+        {% for job in object_list %}
+        <a href="{% url 'listings:detail' pk=job.pk %}" class="list-group-item list-group-item-action">
+            <h4 class="list-group-item-heading">{{ job.title }}</h4>
+            <p class="list-group-item-text">{{ job.description|truncatewords:20 }}</p>
+        </a>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+    <!-- Pagination logic here -->
+    {% endif %}
+</div>
 {% endblock %}
