@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "career.companies",
     "career.listings",
     "career.resume",
+    "career.home",
 ]
 
 MIDDLEWARE = [
@@ -143,4 +144,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/users/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
