@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ job.title }}</h1>
-<p><strong>Description:</strong> {{ job.description }}</p>
-<p><strong>Requirements:</strong> {{ job.requirements }}</p>
-<p><strong>Location:</strong> {{ job.location }}</p>
-<p><strong>Employment Type:</strong> {{ job.employment_type }}</p>
-<p><strong>Posted Date:</strong> {{ job.posted_date }}</p>
-<p><strong>Application Deadline:</strong> {{ job.application_deadline }}</p>
-<p><strong>Salary Range:</strong> {{ job.salary_range }}</p>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{ job.title }}</h1>
+            <h6 class="card-subtitle mb-2 text-muted">{{ job.employment_type }}</h6>
+            <p class="card-text"><strong>Description:</strong> {{ job.description }}</p>
+            <p class="card-text"><strong>Requirements:</strong> {{ job.requirements }}</p>
+            <p class="card-text"><strong>Location:</strong> {{ job.location }}</p>
+            <p class="card-text"><strong>Posted Date:</strong> {{ job.posted_date }}</p>
+            <p class="card-text"><strong>Application Deadline:</strong> {{ job.application_deadline }}</p>
+            <p class="card-text"><strong>Salary Range:</strong> {{ job.salary_range }}</p>
+        </div>
+    </div>
+</div>
 {% endblock %}

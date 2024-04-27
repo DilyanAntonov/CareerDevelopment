@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('career.users.urls', namespace='users')),
     path('listings/', include('career.listings.urls', namespace='listings')),
+    path('', include('career.home.urls', namespace='')),
 ]
