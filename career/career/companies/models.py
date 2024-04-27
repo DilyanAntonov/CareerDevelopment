@@ -10,3 +10,6 @@ class Company(models.Model):
     contact_email = models.EmailField()
     logo = models.ImageField(upload_to='company_logos/', blank=True)
     established_year = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
