@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron mt-4">
+        <h1>Welcome to Our Job Listing Site!</h1>
+        <p class="lead">Find jobs or post job listings to attract talents.</p>
+        <hr class="my-4">
+        <p>Use this platform to explore opportunities or find the right candidate for your company.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{% url 'listings:list' %}" role="button">Browse Jobs</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
