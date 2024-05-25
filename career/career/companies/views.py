@@ -1,8 +1,10 @@
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.views.generic import DetailView
 from django.views.generic.edit import FormView
 from .forms import CompanyRegistrationForm
+from .models import Company
 
 
 class CompanyRegistrationView(FormView):
@@ -22,3 +24,9 @@ class CompanyLoginView(LoginView):
     def form_valid(self, form):
         messages.success(self.request, 'You have successfully logged in.')
         return super().form_valid(form)
+
+
+class CompanyDetailView(DetailView):
+    model = Company
+    template_name = 'companies/company_detail.html'
+    context_object_name = 'company'

@@ -1,9 +1,10 @@
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 
 from career.users.forms import UserRegistrationForm
+from career.users.models import User
 
 
 class UserRegistrationView(FormView):
@@ -27,3 +28,9 @@ class UserLoginView(LoginView):
 
 class RegistrationSuccessView(TemplateView):
     template_name = 'users/registration_success.html'
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'users/user_detail.html'
+    context_object_name = 'user'
