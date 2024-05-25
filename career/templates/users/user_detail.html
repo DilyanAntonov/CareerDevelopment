@@ -1,0 +1,16 @@
+{% extends 'users/user_base.html' %}
+
+{% block user_content %}
+<div class="container">
+    <h1 class="mt-4">Profile of {{ user.first_name }}</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
