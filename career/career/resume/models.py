@@ -1,9 +1,9 @@
 from django.db import models
-from career.users.models import User
+from career.users.models import BaseUser
 
 
 class Resume(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
     summary = models.TextField()
     education = models.TextField()
     experience = models.TextField()
