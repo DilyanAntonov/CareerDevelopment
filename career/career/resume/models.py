@@ -21,7 +21,7 @@ class Project(models.Model):
 
 
 class Resume(models.Model):
-    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(BaseUser, on_delete=models.CASCADE)
     summary = models.TextField()
     education = models.TextField()
     experience = models.TextField()

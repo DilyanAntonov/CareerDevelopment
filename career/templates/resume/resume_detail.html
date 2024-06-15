@@ -1,0 +1,40 @@
+{% extends 'users/user_base.html' %}
+
+{% block user_content %}
+{% if object %}
+    <h1>{{ user.get_full_name }}'s Resume</h1>
+    <div>
+        <h2>Summary</h2>
+        <p>{{ object.summary }}</p>
+
+        <h2>Education</h2>
+        <p>{{ object.education }}</p>
+
+        <h2>Experience</h2>
+        <p>{{ object.experience }}</p>
+
+        <h2>Skills</h2>
+        <ul>
+            {% for skill in object.skills.all %}
+                <li>{{ skill.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Projects</h2>
+        <ul>
+            {% for project in object.projects.all %}
+                <li>{{ project.name }} - {{ project.description }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Certifications</h2>
+        <p>{{ object.certifications }}</p>
+
+        <h2>Interests</h2>
+        <p>{{ object.interests }}</p>
+    </div>
+{% else %}
+    <p>No resume found. Create your resume to showcase your achievements.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'resume:create-resume' %}" role="mon">Create Resume</a>
+{% endif %}
+{% endblock %}
