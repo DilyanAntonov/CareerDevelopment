@@ -1,7 +1,0 @@
-{% extends 'users/user_base.html' %}
-
-{% block user_content %}
-<h2>Resumes</h2>
-<p>Total Resumes: {{ total_resumes }}</p>
-<a class="btn btn-primary btn-lg" href="{% url 'resume:create-resume' %}" role="button">Create Resume</a>
-{% endblock %}
