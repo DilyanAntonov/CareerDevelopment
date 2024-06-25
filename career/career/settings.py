@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "career.listings",
     "career.resume",
     "career.home",
+    "career.application"
 ]
 
 MIDDLEWARE = [
