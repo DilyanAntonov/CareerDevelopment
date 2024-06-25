@@ -1,11 +1,11 @@
 from django.db import models
-from career.users.models import User
+from career.users.models import BaseUser
 from career.listings.models import JobListing
 from career.resume.models import Resume
 
 
 class Application(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
     job_listing = models.ForeignKey(JobListing, on_delete=models.CASCADE)
     application_date = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=50)

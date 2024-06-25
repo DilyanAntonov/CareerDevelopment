@@ -14,5 +14,15 @@
             <p class="card-text"><strong>Salary Range:</strong> {{ job.salary_range }}</p>
         </div>
     </div>
-</div>
+    <form method="post">
+        {% csrf_token %}
+        {% if user_has_applied %}
+            <button type="button" class="btn btn-secondary" disabled="disabled">Already Applied</button>
+        {% elif user_has_resume %}
+            <button type="submit" class="btn btn-primary">Apply Now</button>
+        {% else %}
+            <button type="button" class="btn btn-secondary" disabled="disabled">Apply Now (No Resume Uploaded)</button>
+        {% endif %}
+    </form>
+    </div>
 {% endblock %}
