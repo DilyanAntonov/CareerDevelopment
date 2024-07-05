@@ -1,0 +1,13 @@
+{% extends 'companies/company_base.html' %}
+
+{% block user_content %}
+<div class="container mt-3">
+    <h2>Edit Job Listing</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        <a href="{% url 'companies:manage-job-listings' job_listing.company.pk %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
