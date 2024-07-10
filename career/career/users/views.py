@@ -1,10 +1,12 @@
-from django.views.generic import FormView, TemplateView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import FormView, TemplateView, DetailView, UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib import messages
 
-from career.users.forms import UserRegistrationForm
-from career.users.models import User
+from career.companies.models import Company
+from career.users.forms import UserRegistrationForm, UserUpdateForm, CompanyUpdateForm
+from career.users.models import User, BaseUser
 
 
 class UserRegistrationView(FormView):
@@ -34,3 +36,27 @@ class UserDetailView(DetailView):
     model = User
     template_name = 'users/user_detail.html'
     context_object_name = 'user'
+
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'users/user_update.html'
+
+    def get_success_url(self):
+        return reverse_lazy('users:user-detail', kwargs={'pk': self.object.user.pk})
+
+    def get_object(self):
+        if self.request.user.is_company:
+            return Company.objects.get(pk=self.request.user.pk)
+        else:
+            return User.objects.get(pk=self.request.user.pk)
+
+    def get_form_class(self):
+        if self.request.user.is_company:
+            return CompanyUpdateForm
+        else:
+            return UserUpdateForm
+
+
+class CustomPasswordChangeView(PasswordChangeView):
+    template_name = 'users/password_change.html'
+    success_url = reverse_lazy('users:password_change_done')
