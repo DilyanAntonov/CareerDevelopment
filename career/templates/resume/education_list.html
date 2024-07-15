@@ -1,0 +1,27 @@
+{% extends 'users/user_base.html' %}
+
+{% block user_content %}
+<h2>Educations</h2>
+<a class="btn btn-primary btn-lg mb-4" href="{% url 'resume:create-education' %}" role="button">Add Education</a>
+
+<div class="row">
+    {% for education in educations %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ education }}</h5>
+                <form action="{% url 'resume:delete-education' education.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this education?');">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col">
+        <p>No education found.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

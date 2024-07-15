@@ -9,6 +9,25 @@ class Skill(models.Model):
         return self.name
 
 
+class Language(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Education(models.Model):
+    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
+    institution_name = models.CharField(max_length=255)
+    course_name = models.CharField(max_length=255)
+    start_year = models.IntegerField()
+    end_year = models.IntegerField(blank=True, null=True)
+    certificate_link = models.CharField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.institution_name} - {self.course_name}"
+
+
 class Project(models.Model):
     user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
@@ -26,6 +45,7 @@ class Resume(models.Model):
     education = models.TextField()
     experience = models.TextField()
     skills = models.ManyToManyField(Skill, blank=True)
+    languages = models.ManyToManyField(Language, blank=True)
     projects = models.ManyToManyField(Project, blank=True)
-    certifications = models.CharField(max_length=500, blank=True)
+    educations = models.ManyToManyField(Education, blank=True)
     interests = models.CharField(max_length=300, blank=True)

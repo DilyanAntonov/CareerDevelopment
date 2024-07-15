@@ -1,0 +1,10 @@
+{% extends 'users/user_base.html' %}
+
+{% block user_content %}
+<h2>Update Resume</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}
