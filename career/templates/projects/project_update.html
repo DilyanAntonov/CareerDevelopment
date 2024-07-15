@@ -1,0 +1,13 @@
+{% extends 'users/user_base.html' %}
+
+{% block user_content %}
+<h2>Update Project</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Update Project</button>
+</form>
+
+<a href="{% url 'resume:projects-list' %}" class="btn btn-secondary">Cancel</a>
+{% endblock %}
