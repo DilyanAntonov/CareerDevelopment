@@ -1,15 +1,22 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import FormView, UpdateView, DeleteView
+from django.views.generic.edit import FormView, UpdateView, DeleteView, CreateView
 from .forms import CompanyRegistrationForm
 from .models import Company
+from ..application.models import Application
+from ..listings.forms import JobListingForm
 from ..listings.models import JobListing
 from ..users.forms import CompanyUpdateForm, UserUpdateForm
 from ..users.models import User
+
+
+class CompanyRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_authenticated and self.request.user.is_company
 
 
 class CompanyRegistrationView(FormView):
@@ -35,6 +42,17 @@ class CompanyDetailView(DetailView):
     model = Company
     template_name = 'companies/company_detail.html'
     context_object_name = 'company'
+
+
+class CompanyInfo(DetailView):
+    model = Company
+    template_name = 'companies/company_info.html'
+    context_object_name = 'company'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['job_listings'] = JobListing.objects.filter(company=self.object)
+        return context
 
 
 class CompanyUpdateView(LoginRequiredMixin, UpdateView):
@@ -87,6 +105,24 @@ class ManageJobListingsView(LoginRequiredMixin, ListView):
         return context
 
 
+class JobListingCreateView(LoginRequiredMixin, CompanyRequiredMixin, CreateView):
+    model = JobListing
+    form_class = JobListingForm
+    template_name = 'companies/job_create.html'
+
+    def get_success_url(self):
+        return reverse_lazy('companies:manage-job-listings', kwargs={'pk': self.request.user.id})
+
+    def form_valid(self, form):
+        form.instance.company = Company.objects.get(id=self.request.user.id)
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['company'] = Company.objects.get(id=self.request.user.id)
+        return context
+
+
 class JobListingUpdateView(LoginRequiredMixin, UpdateView):
     model = JobListing
     fields = ['title', 'description', 'requirements', 'location', 'employment_type', 'application_deadline', 'salary_range']
@@ -113,4 +149,18 @@ class JobListingDeleteView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['company'] = self.object.company
+        return context
+
+
+class JobListingMonitorView(LoginRequiredMixin, CompanyRequiredMixin, DetailView):
+    model = JobListing
+    template_name = 'companies/job_listing_monitor.html'
+    context_object_name = 'job_listing'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        job_listing = self.get_object()
+        applications = Application.objects.filter(job_listing=job_listing).select_related('user', 'job_listing')
+
+        context['applications'] = applications
         return context

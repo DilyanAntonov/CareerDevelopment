@@ -1,41 +1,50 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView, DetailView
-from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView
+from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django_filters import rest_framework as filters
+from django import forms
 
 from .models import JobListing
-from .forms import JobListingForm
 from ..application.models import Application
+from ..companies.models import Company
 from ..resume.models import Resume
+
+
+class JobListingFilter(filters.FilterSet):
+    company = filters.ModelChoiceFilter(queryset=Company.objects.all(), widget=forms.Select)
+    title = filters.CharFilter(field_name='title', lookup_expr='icontains')
+    employment_type = filters.ChoiceFilter(choices=JobListing.EMPLOYMENT_TYPE_CHOICES)
+    salary_min = filters.NumberFilter(field_name='salary_min', lookup_expr='gte')
+    salary_max = filters.NumberFilter(field_name='salary_max', lookup_expr='lte')
+
+    class Meta:
+        model = JobListing
+        fields = ['company', 'title', 'employment_type', 'salary_min', 'salary_max']
 
 
 class JobListingListView(ListView):
     template_name = 'listings/job_list.html'
     model = JobListing
     paginate_by = 10
+    context_object_name = 'jobs'
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.order_by('-posted_date')
+        queryset = super().get_queryset().order_by('-posted_date')
+        self.filterset = JobListingFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
 
-        return queryset
-
-
-class JobListingCreateView(CreateView):
-    model = JobListing
-    form_class = JobListingForm
-    template_name = 'listings/job_create.html'
-    success_url = reverse_lazy('listings:list')
-
-    def form_valid(self, form):
-        return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
 
 
 class JobListingDetailView(LoginRequiredMixin, DetailView):
     model = JobListing
     template_name = 'listings/job_detail.html'
-    context_objectname = 'job'
+    context_object_name = 'job'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
