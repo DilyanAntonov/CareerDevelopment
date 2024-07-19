@@ -5,13 +5,16 @@
     <div class="card">
         <div class="card-body">
             <h1 class="card-title">{{ job.title }}</h1>
-            <h6 class="card-subtitle mb-2 text-muted">{{ job.employment_type }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">
+                {{ job.get_employment_type_display }} at
+                <a href="{% url 'companies:company-info' pk=job.company.id %}">{{ job.company.name }}</a>
+            </h6>
             <p class="card-text"><strong>Description:</strong> {{ job.description }}</p>
             <p class="card-text"><strong>Requirements:</strong> {{ job.requirements }}</p>
             <p class="card-text"><strong>Location:</strong> {{ job.location }}</p>
             <p class="card-text"><strong>Posted Date:</strong> {{ job.posted_date }}</p>
             <p class="card-text"><strong>Application Deadline:</strong> {{ job.application_deadline }}</p>
-            <p class="card-text"><strong>Salary Range:</strong> {{ job.salary_range }}</p>
+            <p class="card-text"><strong>Salary Range:</strong> {{ job.salary_min }} - {{ job.salary_max }}</p>
         </div>
     </div>
     <form method="post">
@@ -24,5 +27,5 @@
             <button type="button" class="btn btn-secondary" disabled="disabled">Apply Now (No Resume Uploaded)</button>
         {% endif %}
     </form>
-    </div>
+</div>
 {% endblock %}

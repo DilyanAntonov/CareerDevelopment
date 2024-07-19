@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-4">
+            {% if company.logo %}
+            <img src="{{ company.logo.url }}" class="img-fluid" alt="{{ company.name }}">
+            {% endif %}
+            <h2>{{ company.name }}</h2>
+            <p>{{ company.description }}</p>
+            <p><strong>Industry:</strong> {{ company.industry }}</p>
+            <p><strong>Location:</strong> {{ company.location }}</p>
+            <p><strong>Website:</strong> <a href="{{ company.website }}" target="_blank">{{ company.website }}</a></p>
+            <p><strong>Contact Email:</strong> <a href="mailto:{{ company.contact_email }}">{{ company.contact_email }}</a></p>
+            <p><strong>Established Year:</strong> {{ company.established_year }}</p>
+        </div>
+        <div class="col-md-8">
+            <h2>Available Job Listings</h2>
+            <div class="list-group mt-3">
+                {% for job in job_listings %}
+                <a href="{% url 'listings:detail' pk=job.pk %}" class="list-group-item list-group-item-action">
+                    <h4 class="list-group-item-heading">{{ job.title }}</h4>
+                    <p class="list-group-item-text">{{ job.description|truncatewords:20 }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

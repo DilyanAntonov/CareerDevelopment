@@ -1,0 +1,12 @@
+{% extends 'companies/company_base.html' %}
+
+{% block user_content %}
+<div class="container mt-3">
+    <h2>Create Job Listing</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
