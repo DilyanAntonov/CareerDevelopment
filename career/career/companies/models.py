@@ -5,6 +5,7 @@ from career.users.models import BaseUser
 class Company(BaseUser):
     name = models.CharField(max_length=255)
     description = models.TextField()
+    employees_num = models.IntegerField(null=True, blank=True)
     industry = models.CharField(max_length=100)
     location = models.CharField(max_length=255)
     website = models.CharField(max_length=200, blank=True)

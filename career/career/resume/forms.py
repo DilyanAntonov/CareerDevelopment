@@ -10,13 +10,13 @@ class ResumeForm(forms.ModelForm):
     )
 
     projects = forms.ModelMultipleChoiceField(
-        queryset=Project.objects.all(),
+        queryset=Project.objects.none(),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
 
     educations = forms.ModelMultipleChoiceField(
-        queryset=Education.objects.all(),
+        queryset=Education.objects.none(),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
@@ -24,6 +24,13 @@ class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
         fields = ['summary', 'educations', 'experience', 'projects', 'skills', 'interests']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if user is not None:
+            self.fields['projects'].queryset = Project.objects.filter(user=user)
+            self.fields['educations'].queryset = Education.objects.filter(user=user)
 
 
 class ProjectForm(forms.ModelForm):
