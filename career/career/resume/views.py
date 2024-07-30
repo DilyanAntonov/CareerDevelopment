@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DeleteView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Resume, Project, Education
@@ -52,6 +53,16 @@ class ResumeUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class ResumeDisplayView(LoginRequiredMixin, DetailView):
+    model = Resume
+    template_name = 'resume/resume_display.html'
+    context_object_name = 'resume'
+
+    def get_object(self):
+        user_id = self.kwargs.get('pk')
+        return get_object_or_404(Resume, user__id=user_id)
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
