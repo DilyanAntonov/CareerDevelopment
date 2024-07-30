@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-3">
+    <h2>Resume for {{ resume.user.get_full_name }}</h2>
+    <p><strong>Email:</strong> {{ resume.user.email }}</p>
+    <p><strong>Phone:</strong> {{ resume.user.phone_number }}</p>
+
+    {% if resume.summary %}
+      <p><strong>Summary:</strong> {{ resume.summary }}</p>
+    {% endif %}
+
+    {% if resume.experience %}
+      <p><strong>Experience:</strong> {{ resume.experience }}</p>
+    {% endif %}
+
+    {% if resume.education %}
+      <p><strong>Education:</strong> {{ resume.education }}</p>
+    {% endif %}
+
+    {% if resume.skills.exists %}
+      <p><strong>Skills:</strong>
+        <ul>
+          {% for skill in resume.skills.all %}
+            <li>{{ skill.name }}</li>
+          {% endfor %}
+        </ul>
+      </p>
+    {% endif %}
+
+    {% if resume.languages.exists %}
+      <p><strong>Languages:</strong>
+        <ul>
+          {% for language in resume.languages.all %}
+            <li>{{ language.name }}</li>
+          {% endfor %}
+        </ul>
+      </p>
+    {% endif %}
+
+    {% if resume.projects.exists %}
+      <p><strong>Projects:</strong>
+        <ul>
+          {% for project in resume.projects.all %}
+            <li>
+              <h4>{{ project.title }}</h4>
+              <p><strong>Description:</strong> {{ project.description }}</p>
+              {% if project.technologies %}
+                <p><strong>Technologies:</strong> {{ project.technologies }}</p>
+              {% endif %}
+              {% if project.link %}
+                <p><strong>Link:</strong> <a href="{{ project.link }}" target="_blank">{{ project.link }}</a></p>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </p>
+    {% endif %}
+
+    {% if resume.educations.exists %}
+      <p><strong>Educations:</strong>
+        <ul>
+          {% for education in resume.educations.all %}
+            <li>{{ education.institution_name }} - {{ education.degree }}</li>
+          {% endfor %}
+        </ul>
+      </p>
+    {% endif %}
+
+    {% if resume.interests %}
+      <p><strong>Interests:</strong> {{ resume.interests }}</p>
+    {% endif %}
+  </div>
+{% endblock %}
