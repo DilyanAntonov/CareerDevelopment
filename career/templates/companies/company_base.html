@@ -21,6 +21,13 @@
                         </a>
                         {% endif %}
                     </li>
+                    <li class="nav-item">
+                        {% if company %}
+                        <a class="nav-link active" aria-current="page" href="{% url 'news:company_news_list' %}">
+                            News Articles
+                        </a>
+                        {% endif %}
+                    </li>
                 </ul>
             </div>
         </nav>

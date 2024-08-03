@@ -1,0 +1,22 @@
+{% extends 'companies/company_base.html' %}
+
+{% block user_content %}
+<div class="container">
+    <h2>Your News Articles</h2>
+
+    <a href="{% url 'news:news_create' %}" class="btn btn-primary mb-3">Create New Article</a>
+
+    <div class="list-group">
+        {% for article in news_articles %}
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1">{{ article.title }}</h4>
+                <small>{{ article.date_posted|date:"F j, Y" }}</small>
+            </div>
+            <p class="mb-1">{{ article.content|truncatewords:20 }}</p>
+            <a href="{% url 'news:news_delete' article.pk %}" class="btn btn-danger btn-sm">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

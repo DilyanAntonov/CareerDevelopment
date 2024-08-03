@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>All News Articles</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <form method="get" id="sortForm">
+            <select name="sort" class="form-control" onchange="document.getElementById('sortForm').submit();">
+                <option value="newest" {% if sort_order == 'newest' %}selected{% endif %}>Newest</option>
+                <option value="oldest" {% if sort_order == 'oldest' %}selected{% endif %}>Oldest</option>
+            </select>
+        </form>
+    </div>
+    <div class="list-group">
+        {% for article in news_articles %}
+        <a href="{% url 'news:news_detail' article.pk %}" class="list-group-item list-group-item-action">
+            <h4 class="mb-1">{{ article.title }}</h4>
+            <p class="mb-1">Posted by: {{ article.company.name }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
