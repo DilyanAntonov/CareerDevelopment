@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>{{ news_article.title }}</h2>
+    <p><strong>Posted by:</strong> {{ news_article.company.name }}</p>
+    <p><strong>Date Posted:</strong> {{ news_article.date_posted|date:"F j, Y" }}</p>
+    <div>
+        {{ news_article.content }}
+    </div>
+</div>
+{% endblock %}
