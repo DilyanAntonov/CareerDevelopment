@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     "career.listings",
     "career.resume",
     "career.home",
-    "career.application"
+    "career.application",
+    "career.trends"
 ]
 
 MIDDLEWARE = [

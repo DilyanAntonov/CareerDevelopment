@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>Job Trends for Programming Languages</h2>
+
+    <div class="row mt-4">
+        <div class="col">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" class="form-control">
+        </div>
+        <div class="col">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" class="form-control">
+        </div>
+    </div>
+
+    <button id="filterButton" class="btn btn-primary mt-4">Filter Data</button>
+
+    <canvas id="jobChart" class="mt-4"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('jobChart').getContext('2d');
+            var jobData = {{ job_data|safe }};
+            var dates = {{ dates|safe }};
+            var filteredData = jobData;
+            var filteredDates = dates;
+            var colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
+            var colorIndex = 0;
+
+            function updateChart() {
+                var datasets = [];
+                for (var language in filteredData) {
+                    datasets.push({
+                        label: language,
+                        data: filteredData[language],
+                        fill: false,
+                        borderColor: colors[colorIndex % colors.length],
+                    });
+                    colorIndex++;
+                }
+
+                jobChart.data.labels = filteredDates;
+                jobChart.data.datasets = datasets;
+                jobChart.update();
+            }
+
+            var jobChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: []
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Job Listings Over Time'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        hover: {
+                            mode: 'nearest',
+                            intersect: true
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('filterButton').addEventListener('click', function() {
+                var startDate = new Date(document.getElementById('startDate').value);
+                var endDate = new Date(document.getElementById('endDate').value);
+                if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                    alert("Please select valid start and end dates.");
+                    return;
+                }
+
+                filteredDates = dates.filter(date => {
+                    var currentDate = new Date(date);
+                    return currentDate >= startDate && currentDate <= endDate;
+                });
+
+                filteredData = {};
+                for (var language in jobData) {
+                    filteredData[language] = [];
+                    for (var i = 0; i < jobData[language].length; i++) {
+                        if (dates[i] >= startDate.toISOString().split('T')[0] && dates[i] <= endDate.toISOString().split('T')[0]) {
+                            filteredData[language].push(jobData[language][i]);
+                        }
+                    }
+                }
+
+                updateChart();
+            });
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            updateChart();
+        });
+    </script>
+</div>
+{% endblock %}
