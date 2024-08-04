@@ -6,7 +6,8 @@ class CompanyRegistrationForm(UserCreationForm):
     class Meta:
         model = Company
         fields = ('email', 'name', 'description', 'employees_num', 'industry', 'location', 'website', 'contact_email',
-                  'logo', 'established_year', 'password1', 'password2')
+                  'logo', 'established_year', 'eik', 'password1', 'password2')
+
 
     def __init__(self, *args, **kwargs):
         super(CompanyRegistrationForm, self).__init__(*args, **kwargs)

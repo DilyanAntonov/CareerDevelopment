@@ -12,6 +12,7 @@ class Company(BaseUser):
     contact_email = models.EmailField()
     logo = models.ImageField(upload_to='company_logos/', blank=True)
     established_year = models.IntegerField(null=True, blank=True)
+    eik = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name

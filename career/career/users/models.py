@@ -17,4 +17,5 @@ class BaseUser(AbstractUser):
 class User(BaseUser):
     address = models.CharField(max_length=150, null=True)
     description = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to='profile_images', blank=True)
+    profile_image = models.ImageField(upload_to='profile_images', blank=True)
+    stud_num = models.CharField(max_length=10)
