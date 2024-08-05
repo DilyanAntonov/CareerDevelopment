@@ -1,8 +1,11 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
+from django.views import View
 from django.urls import reverse
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django_filters import rest_framework as filters
 from django import forms
 
@@ -10,7 +13,10 @@ from .models import JobListing
 from ..application.models import Application
 from ..companies.models import Company
 from ..resume.models import Resume
+from .constants import OPENAI_PROMPT
 
+from openai import OpenAI
+from openai.types.chat import ChatCompletion
 
 class JobListingFilter(filters.FilterSet):
     company = filters.ModelChoiceFilter(queryset=Company.objects.all(), widget=forms.Select)
@@ -74,3 +80,63 @@ class JobListingDetailView(LoginRequiredMixin, DetailView):
         else:
             messages.error(request, "You need to upload a resume before applying.")
             return HttpResponseRedirect(reverse('resume:create-resume'))
+
+
+class JobFitScoreView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            job_id = data.get('job_id')
+            user = request.user
+
+            resume = Resume.objects.get(user=user)
+            job = JobListing.objects.get(id=job_id)
+
+            resume_data = {
+                'summary': resume.summary,
+                'education': resume.education,
+                'experience': resume.experience,
+                'skills': [skill.name for skill in resume.skills.all()],
+                'languages': [language.name for language in resume.languages.all()],
+                'projects': [[project.title, project.technologies, project.description] for project in resume.projects.all()],
+                'interests': resume.interests,
+            }
+
+            job_data = {
+                'title': job.title,
+                'description': job.description,
+                'requirements': job.requirements,
+                'location': job.location,
+                'employment_type': job.get_employment_type_display(),
+            }
+
+            prompt = "Analyze the following resume data: {resume_data} and job listing data: {job_data} and give a score from 0 to 10 of how good of a fit it is. Please return the result in the following JSON format: {{\"text\": \"<analysis>\", \"score\": <score>}}. Keep the analysis very short, 2-3 sentences."
+
+            # openai.api_key = settings.OPENAI_API_KEY
+            client = OpenAI()
+            result: ChatCompletion = client.chat.completions.create(
+                model="gpt-4o-mini",
+                top_p=0.5,
+                messages=[
+                    {"role": "system", "content": "You are a job matching assistant."},
+                    {"role": "user", "content": OPENAI_PROMPT.format(resume=resume_data,
+                                                                     job=job_data)}
+                ]
+            )
+
+            message_content = result.choices[0].message.content.strip()
+            print(message_content)
+            response_data = json.loads(message_content)
+            analysis_text = response_data['text']
+            score = response_data['score']
+
+            return JsonResponse({'text': analysis_text, 'score': score})
+
+
+        except Resume.DoesNotExist:
+            return JsonResponse({'error': 'Resume not found'}, status=400)
+        except JobListing.DoesNotExist:
+            return JsonResponse({'error': 'Job listing not found'}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)

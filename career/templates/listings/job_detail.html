@@ -23,9 +23,110 @@
             <button type="button" class="btn btn-secondary" disabled="disabled">Already Applied</button>
         {% elif user_has_resume %}
             <button type="submit" class="btn btn-primary">Apply Now</button>
+            <button type="button" id="fit-score-btn" data-job-id="{{ job.id }}" class="btn btn-info">AI Analysis</button>
+            <button type="button" id="ai-info" class="btn btn-info">?</button>
         {% else %}
             <button type="button" class="btn btn-secondary" disabled="disabled">Apply Now (No Resume Uploaded)</button>
         {% endif %}
     </form>
 </div>
+
+<!-- Modal for displaying the fit score -->
+<div class="modal fade" id="fitScoreModal" tabindex="-1" role="dialog" aria-labelledby="fitScoreModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fitScoreModalLabel">Fit Score</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="fit-score-content" style="font-size: 24px; font-weight: bold;">Loading...</p>
+        <p id="analysis-content"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for displaying info -->
+<div class="modal fade" id="AIinfoDiv" tabindex="-1" role="dialog" aria-labelledby="fitScoreModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">AI Analysis info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="info-text">
+          Our AI-powered Fit Score feature helps you understand how well your resume matches the job listing you're interested in. Here's how it works:<br><br>
+          1. <strong>Resume Analysis:</strong> Our system takes the information from your resume, including your summary, education, experience, skills, languages, projects, and interests.<br>
+          2. <strong>Job Listing Analysis:</strong> We then analyze the details of the job listing, such as the job title, description, requirements, location, and employment type.<br>
+          3. <strong>AI Evaluation:</strong> Using advanced AI algorithms, we compare your resume to the job listing and generate a fit score between 0 and 10, with 10 being the best match.<br>
+          4. <strong>Results:</strong> You receive a short analysis explaining the fit and a score to help you understand how well your profile matches the job.<br><br>
+          This feature helps you make informed decisions and target the job opportunities that best match your qualifications.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('fit-score-btn').addEventListener('click', function() {
+    var jobId = this.getAttribute('data-job-id');
+    var cacheKey = 'jobFitScore-' + jobId;
+
+    var cachedData = localStorage.getItem(cacheKey);
+    var cacheTimestamp = localStorage.getItem(cacheKey + '-timestamp');
+    var cacheDuration = 60 * 60 * 1000; // 1 hour
+
+    if (cachedData && cacheTimestamp && (new Date().getTime() - cacheTimestamp < cacheDuration)) {
+        var data = JSON.parse(cachedData);
+        document.getElementById('fit-score-content').innerText = 'Fit Score: ' + data.score;
+        document.getElementById('analysis-content').innerText = 'Analysis: ' + data.text;
+        $('#fitScoreModal').modal('show');
+        return;
+    }
+
+    fetch('{% url "listings:job-fit-score" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ job_id: jobId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById('fit-score-content').innerText = data.error;
+            document.getElementById('analysis-content').innerText = '';
+        } else {
+            document.getElementById('fit-score-content').innerText = 'Fit Score: ' + data.score;
+            document.getElementById('analysis-content').innerText = 'Analysis: ' + data.text;
+
+            // Store the data and timestamp in local storage
+            localStorage.setItem(cacheKey, JSON.stringify(data));
+            localStorage.setItem(cacheKey + '-timestamp', new Date().getTime());
+        }
+        $('#fitScoreModal').modal('show');
+    })
+    .catch(error => {
+        document.getElementById('fit-score-content').innerText = 'An error occurred. Please try again.';
+        document.getElementById('analysis-content').innerText = '';
+        $('#fitScoreModal').modal('show');
+    });
+});
+
+
+document.getElementById('ai-info').addEventListener('click', function() {
+    $('#AIinfoDiv').modal('show');
+});
+
+</script>
+{% endblock %}
+
