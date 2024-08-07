@@ -1,8 +1,9 @@
 {% extends 'users/user_base.html' %}
+{% load i18n %}
 
 {% block user_content %}
-<h2>Projects</h2>
-<a class="btn btn-primary btn-lg mb-4" href="{% url 'resume:create-project' %}" role="button">Create Project</a>
+<h2>{% trans "Projects" %}</h2>
+<a class="btn btn-primary btn-lg mb-4" href="{% url 'resume:create-project' %}" role="button">{% trans "Create Project" %}</a>
 
 <div class="row">
     {% for project in projects %}
@@ -11,18 +12,18 @@
             <div class="card-body">
                 <h5 class="card-title">{{ project.title }}</h5>
                 <p class="card-text">{{ project.description }}</p>
-                <p class="card-text"><small class="text-muted">Technologies: {{ project.technologies }}</small></p>
-                    <a href="{% url 'resume:update-project' project.id %}" class="btn btn-primary">Edit</a>
+                <p class="card-text"><small class="text-muted">{% trans "Technologies:" %} {{ project.technologies }}</small></p>
+                <a href="{% url 'resume:update-project' project.id %}" class="btn btn-primary">{% trans "Edit" %}</a>
                 <form action="{% url 'resume:delete-project' project.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this project?');">Delete</button>
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('{% trans "Are you sure you want to delete this project?" %}');">{% trans "Delete" %}</button>
                 </form>
             </div>
         </div>
     </div>
     {% empty %}
     <div class="col">
-        <p>No projects found.</p>
+        <p>{% trans "No projects found." %}</p>
     </div>
     {% endfor %}
 </div>

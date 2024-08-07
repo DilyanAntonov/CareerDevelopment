@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-  <h2>Login</h2>
+  <h2>{% trans "Login" %}</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
-    <p><a href="{% url 'users:register' %}">Register</a></p>
-    <p><a href="{% url 'companies:login-company' %}">Logging in as a company?</a></p>
+    <button type="submit">{% trans "Login" %}</button>
+    <p><a href="{% url 'users:register' %}">{% trans "Register" %}</a></p>
+    <p><a href="{% url 'companies:login-company' %}">{% trans "Logging in as a company?" %}</a></p>
   </form>
 {% endblock %}

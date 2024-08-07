@@ -1,22 +1,24 @@
 {% extends 'users/user_base.html' %}
+{% load i18n %}
 
 {% block user_content %}
 {% if object %}
-    <h1>{{ user.get_full_name }}'s Resume</h1>
+    <h1>{{ user.get_full_name }}{% trans "'s Resume" %}</h1>
     <div>
-        <h2>Summary</h2>
+        <h2>{% trans "Summary" %}</h2>
         <p>{{ object.summary }}</p>
 
         {% if object.educations.exists %}
-        <h2>Education</h2>
+        <h2>{% trans "Education" %}</h2>
             {% for education in object.educations.all %}
-                <li>{{ education.course_name }} from {{ education.institution_name }}</li>
-            {% endfor %}        {% endif %}
+                <li>{{ education.course_name }} {% trans "from" %} {{ education.institution_name }}</li>
+            {% endfor %}
+        {% endif %}
 
-        <h2>Experience</h2>
+        <h2>{% trans "Experience" %}</h2>
         <p>{{ object.experience }}</p>
 
-        <h2>Skills</h2>
+        <h2>{% trans "Skills" %}</h2>
         <ul>
             {% for skill in object.skills.all %}
                 <li>{{ skill.name }}</li>
@@ -24,7 +26,7 @@
         </ul>
 
         {% if object.projects.exists %}
-        <h2>Projects</h2>
+        <h2>{% trans "Projects" %}</h2>
         <ul>
             {% for project in object.projects.all %}
                 <li>{{ project.name }} - {{ project.description }}</li>
@@ -32,15 +34,15 @@
         </ul>
         {% endif %}
 
-        <h2>Certifications</h2>
+        <h2>{% trans "Certifications" %}</h2>
         <p>{{ object.certifications }}</p>
 
-        <h2>Interests</h2>
+        <h2>{% trans "Interests" %}</h2>
         <p>{{ object.interests }}</p>
     </div>
-    <a class="btn btn-primary btn-lg" href="{% url 'resume:update-resume' %}" role="button">Edit</a>
+    <a class="btn btn-primary btn-lg" href="{% url 'resume:update-resume' %}" role="button">{% trans "Edit" %}</a>
 {% else %}
-    <p>No resume found. Create your resume to showcase your achievements.</p>
-    <a class="btn btn-primary btn-lg" href="{% url 'resume:create-resume' %}" role="mon">Create Resume</a>
+    <p>{% trans "No resume found. Create your resume to showcase your achievements." %}</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'resume:create-resume' %}" role="button">{% trans "Create Resume" %}</a>
 {% endif %}
 {% endblock %}

@@ -1,13 +1,14 @@
 {% extends 'users/user_base.html' %}
+{% load i18n %}
 
 {% block user_content %}
-<h2>Update Project</h2>
+<h2>{% trans "Update Project" %}</h2>
 
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Update Project</button>
+    <button type="submit" class="btn btn-primary">{% trans "Update Project" %}</button>
 </form>
 
-<a href="{% url 'resume:projects-list' %}" class="btn btn-secondary">Cancel</a>
+<a href="{% url 'resume:projects-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 {% endblock %}

@@ -1,27 +1,28 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
   <div class="container mt-3">
-    <h2>{{ job_listing.title }} - Applications</h2>
+    <h2>{{ job_listing.title }} - {% trans "Applications" %}</h2>
     <p>{{ job_listing.description }}</p>
     <p>{{ job_listing.location }}</p>
 
-    <h3>Applicants</h3>
+    <h3>{% trans "Applicants" %}</h3>
     {% if applications %}
       <ul class="list-group">
         {% for application in applications %}
           <li class="list-group-item">
             <strong>{{ application.user.get_full_name }}</strong> - {{ application.user.email }}
             <p>{{ application.cover_letter }}</p>
-            <p>Status: {{ application.status }}</p>
+            <p>{% trans "Status:" %} {{ application.status }}</p>
             <a href="{% url 'resume:resume-display' application.user.pk %}" class="btn btn-primary">
-              View Resume
+              {% trans "View Resume" %}
             </a>
           </li>
         {% endfor %}
       </ul>
     {% else %}
-      <p>No applicants yet.</p>
+      <p>{% trans "No applicants yet." %}</p>
     {% endif %}
   </div>
 {% endblock %}

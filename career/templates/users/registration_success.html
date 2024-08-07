@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1>Thank You for Registering!</h1>
-<p>Your registration was successful.</p>
+<h1>{% trans "Thank You for Registering!" %}</h1>
+<p>{% trans "Your registration was successful." %}</p>
 {% endblock %}

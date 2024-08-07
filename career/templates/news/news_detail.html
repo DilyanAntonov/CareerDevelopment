@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-3">
     <h2>{{ news_article.title }}</h2>
-    <p><strong>Posted by:</strong> {{ news_article.company.name }}</p>
-    <p><strong>Date Posted:</strong> {{ news_article.date_posted|date:"F j, Y" }}</p>
+    <p><strong>{% trans "Posted by:" %}</strong> {{ news_article.company.name }}</p>
+    <p><strong>{% trans "Date Posted:" %}</strong> {{ news_article.date_posted|date:"F j, Y" }}</p>
     <div>
         {{ news_article.content }}
     </div>
