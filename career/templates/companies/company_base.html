@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container-fluid">
@@ -10,21 +11,21 @@
                     <li class="nav-item">
                         {% if company %}
                         <a class="nav-link active" aria-current="page" href="{% url 'companies:company-detail' pk=company.pk %}">
-                            Company Detail
+                            {% trans "Company Detail" %}
                         </a>
                         {% endif %}
                     </li>
                     <li class="nav-item">
                         {% if company %}
                         <a class="nav-link active" aria-current="page" href="{% url 'companies:manage-job-listings' pk=company.pk %}">
-                            Job Listings
+                            {% trans "Job Listings" %}
                         </a>
                         {% endif %}
                     </li>
                     <li class="nav-item">
                         {% if company %}
                         <a class="nav-link active" aria-current="page" href="{% url 'news:company_news_list' %}">
-                            News Articles
+                            {% trans "News Articles" %}
                         </a>
                         {% endif %}
                     </li>

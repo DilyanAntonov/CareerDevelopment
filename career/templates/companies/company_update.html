@@ -1,13 +1,14 @@
 {% extends 'companies/company_base.html' %}
+{% load i18n %}
 
 {% block user_content %}
 <div class="container">
-    <h1 class="mt-4">Update Company Profile</h1>
+    <h1 class="mt-4">{% trans "Update Company Profile" %}</h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
     </form>
-    <a href="{% url 'companies:password_change' %}" class="btn btn-secondary mt-3">Change Password</a>
+    <a href="{% url 'companies:password_change' %}" class="btn btn-secondary mt-3">{% trans "Change Password" %}</a>
 </div>
 {% endblock %}

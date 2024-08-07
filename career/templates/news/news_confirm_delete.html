@@ -1,13 +1,14 @@
 {% extends 'companies/company_base.html' %}
+{% load i18n %}
 
 {% block user_content %}
 <div class="container">
-    <h2>Delete News Article</h2>
-    <p>Are you sure you want to delete "{{ object.title }}"?</p>
+    <h2>{% trans "Delete News Article" %}</h2>
+    <p>{% trans "Are you sure you want to delete" %} "{{ object.title }}"?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Yes, delete</button>
-        <a href="{% url 'news:company_news_list' %}">Cancel</a>
+        <button type="submit">{% trans "Yes, delete" %}</button>
+        <a href="{% url 'news:company_news_list' %}">{% trans "Cancel" %}</a>
     </form>
 </div>
 {% endblock %}

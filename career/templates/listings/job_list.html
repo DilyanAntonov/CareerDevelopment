@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-3">
-    <h2>Job Listings</h2>
+    <h2>{% trans "Job Listings" %}</h2>
 
     <form method="get">
         <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="company">Company</label>
+                <label for="company">{% trans "Company" %}</label>
                 <select name="company" id="company" class="form-control">
                     <option value="">---------</option>
                     {% for company in filterset.form.fields.company.queryset %}
@@ -18,11 +19,11 @@
                 </select>
             </div>
             <div class="form-group col-md-3">
-                <label for="title">Job Title</label>
+                <label for="title">{% trans "Job Title" %}</label>
                 <input type="text" name="title" id="title" class="form-control" value="{{ request.GET.title }}">
             </div>
             <div class="form-group col-md-3">
-                <label for="employment_type">Employment Type</label>
+                <label for="employment_type">{% trans "Employment Type" %}</label>
                 <select name="employment_type" id="employment_type" class="form-control">
                     <option value="">---------</option>
                     {% for key, value in jobs.model.EMPLOYMENT_TYPE_CHOICES %}
@@ -33,16 +34,16 @@
                 </select>
             </div>
             <div class="form-group col-md-3">
-                <label for="min_salary">Min Salary</label>
+                <label for="min_salary">{% trans "Min Salary" %}</label>
                 <input type="number" name="salary_min" id="min_salary" class="form-control" value="{{ request.GET.salary_min }}">
             </div>
             <div class="form-group col-md-3">
-                <label for="max_salary">Max Salary</label>
+                <label for="max_salary">{% trans "Max Salary" %}</label>
                 <input type="number" name="salary_max" id="max_salary" class="form-control" value="{{ request.GET.salary_max }}">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Filter</button>
-        <a href="{% url 'listings:list' %}" class="btn btn-secondary">Clear</a>
+        <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
+        <a href="{% url 'listings:list' %}" class="btn btn-secondary">{% trans "Clear" %}</a>
     </form>
 
     <div class="list-group mt-3">

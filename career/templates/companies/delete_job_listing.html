@@ -1,13 +1,14 @@
 {% extends 'companies/company_base.html' %}
+{% load i18n %}
 
 {% block user_content %}
 <div class="container mt-3">
-    <h2>Delete Job Listing</h2>
-    <p>Are you sure you want to delete the job listing "{{ job_listing.title }}"?</p>
+    <h2>{% trans "Delete Job Listing" %}</h2>
+    <p>{% trans "Are you sure you want to delete the job listing" %} "{{ job_listing.title }}"?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Delete</button>
-        <a href="{% url 'companies:manage-job-listings' job_listing.company.pk %}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+        <a href="{% url 'companies:manage-job-listings' job_listing.company.pk %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
     </form>
 </div>
 {% endblock %}

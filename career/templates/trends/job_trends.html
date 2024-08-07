@@ -1,21 +1,22 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-3">
-    <h2>Job Trends for Programming Languages</h2>
+    <h2>{% trans "Job Trends for Programming Languages" %}</h2>
 
     <div class="row mt-4">
         <div class="col">
-            <label for="startDate">Start Date:</label>
+            <label for="startDate">{% trans "Start Date:" %}</label>
             <input type="date" id="startDate" class="form-control">
         </div>
         <div class="col">
-            <label for="endDate">End Date:</label>
+            <label for="endDate">{% trans "End Date:" %}</label>
             <input type="date" id="endDate" class="form-control">
         </div>
     </div>
 
-    <button id="filterButton" class="btn btn-primary mt-4">Filter Data</button>
+    <button id="filterButton" class="btn btn-primary mt-4">{% trans "Filter Data" %}</button>
 
     <canvas id="jobChart" class="mt-4"></canvas>
 
@@ -66,7 +67,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Job Listings Over Time'
+                            text: '{% trans "Job Listings Over Time" %}'
                         },
                         tooltip: {
                             mode: 'index',
@@ -84,7 +85,7 @@
                 var startDate = new Date(document.getElementById('startDate').value);
                 var endDate = new Date(document.getElementById('endDate').value);
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                    alert("Please select valid start and end dates.");
+                    alert("{% trans 'Please select valid start and end dates.' %}");
                     return;
                 }
 

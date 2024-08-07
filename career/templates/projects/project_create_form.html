@@ -1,11 +1,12 @@
 {% extends 'users/user_base.html' %}
+{% load i18n %}
 
 {% block user_content %}
 <div class="container">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <button type="submit">{% trans "Save" %}</button>
     </form>
 </div>
 {% endblock %}

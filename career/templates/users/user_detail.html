@@ -1,18 +1,18 @@
 {% extends 'users/user_base.html' %}
+{% load i18n %}
 
 {% block user_content %}
 <div class="container">
-    <h1 class="mt-4">Profile of {{ user.first_name }}</h1>
+    <h1 class="mt-4">{% trans "Profile of" %} {{ user.first_name }}</h1>
     <div class="row">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                    <p class="card-text"><strong>{% trans "Email:" %}</strong> {{ user.email }}</p>
                 </div>
             </div>
         </div>
     </div>
-    <a href="{% url 'users:user-update' %}" class="btn btn-primary">Edit Profile</a>
-
+    <a href="{% url 'users:user-update' %}" class="btn btn-primary">{% trans "Edit Profile" %}</a>
 </div>
 {% endblock %}

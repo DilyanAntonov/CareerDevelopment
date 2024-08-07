@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-3">
@@ -9,15 +10,15 @@
             {% endif %}
             <h2>{{ company.name }}</h2>
             <p>{{ company.description }}</p>
-            <p><strong>Industry:</strong> {{ company.industry }}</p>
-            <p><strong>Location:</strong> {{ company.location }}</p>
-            <p><strong>Employees:</strong> {{ company.employees_num }}</p>
-            <p><strong>Website:</strong> <a href="{{ company.website }}" target="_blank">{{ company.website }}</a></p>
-            <p><strong>Contact Email:</strong> <a href="mailto:{{ company.contact_email }}">{{ company.contact_email }}</a></p>
-            <p><strong>Established Year:</strong> {{ company.established_year }}</p>
+            <p><strong>{% trans "Industry:" %}</strong> {{ company.industry }}</p>
+            <p><strong>{% trans "Location:" %}</strong> {{ company.location }}</p>
+            <p><strong>{% trans "Employees:" %}</strong> {{ company.employees_num }}</p>
+            <p><strong>{% trans "Website:" %}</strong> <a href="{{ company.website }}" target="_blank">{{ company.website }}</a></p>
+            <p><strong>{% trans "Contact Email:" %}</strong> <a href="mailto:{{ company.contact_email }}">{{ company.contact_email }}</a></p>
+            <p><strong>{% trans "Established Year:" %}</strong> {{ company.established_year }}</p>
         </div>
         <div class="col-md-8">
-            <h2>Available Job Listings</h2>
+            <h2>{% trans "Available Job Listings" %}</h2>
             <div class="list-group mt-3">
                 {% for job in job_listings %}
                 <a href="{% url 'listings:detail' pk=job.pk %}" class="list-group-item list-group-item-action">
