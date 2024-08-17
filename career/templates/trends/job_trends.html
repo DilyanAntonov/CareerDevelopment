@@ -2,23 +2,27 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container mt-3">
-    <h2>{% trans "Job Trends for Programming Languages" %}</h2>
+<div class="container mt-5 pt-5 mb-5">
+    <h2 class="text-center mb-4">{% trans "Job Trends for Programming Languages" %}</h2>
 
-    <div class="row mt-4">
-        <div class="col">
-            <label for="startDate">{% trans "Start Date:" %}</label>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <label for="startDate" class="form-label">{% trans "Start Date:" %}</label>
             <input type="date" id="startDate" class="form-control">
         </div>
-        <div class="col">
-            <label for="endDate">{% trans "End Date:" %}</label>
+        <div class="col-md-4">
+            <label for="endDate" class="form-label">{% trans "End Date:" %}</label>
             <input type="date" id="endDate" class="form-control">
         </div>
     </div>
 
-    <button id="filterButton" class="btn btn-primary mt-4">{% trans "Filter Data" %}</button>
+    <div class="text-center mt-4">
+        <button id="filterButton" class="btn btn-primary">{% trans "Filter Data" %}</button>
+    </div>
 
-    <canvas id="jobChart" class="mt-4"></canvas>
+    <div class="mt-4">
+        <canvas id="jobChart"></canvas>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

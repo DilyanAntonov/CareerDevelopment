@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
-from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormView, UpdateView, DeleteView, CreateView
+from django.utils.translation import gettext_lazy as _
+
 from .forms import CompanyRegistrationForm
 from .models import Company
 from ..application.models import Application
@@ -12,6 +14,10 @@ from ..listings.forms import JobListingForm
 from ..listings.models import JobListing
 from ..users.forms import CompanyUpdateForm, UserUpdateForm
 from ..users.models import User
+
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 
 class CompanyRequiredMixin(UserPassesTestMixin):
@@ -24,14 +30,28 @@ class CompanyRegistrationView(FormView):
     template_name = 'companies/register.html'
     success_url = reverse_lazy('users:registration-success')
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_method = 'post'
+        form.helper.add_input(Submit('submit', _('Register'), css_class='btn btn-primary'))
+        return form
+
     def form_valid(self, form):
-        user = form.save(commit=False)
-        user.save()
+        company = form.save(commit=False)
+        company.save()
         return super().form_valid(form)
 
 
 class CompanyLoginView(LoginView):
     template_name = 'companies/login.html'
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_method = 'post'
+        form.helper.add_input(Submit('submit', 'Login', css_class='btn btn-primary'))
+        return form
 
     def form_valid(self, form):
         messages.success(self.request, 'You have successfully logged in.')
@@ -125,7 +145,7 @@ class JobListingCreateView(LoginRequiredMixin, CompanyRequiredMixin, CreateView)
 
 class JobListingUpdateView(LoginRequiredMixin, UpdateView):
     model = JobListing
-    fields = ['title', 'description', 'requirements', 'location', 'employment_type', 'application_deadline', 'salary_range']
+    fields = ['title', 'description', 'requirements', 'location', 'employment_type', 'salary_min', 'salary_max']
     template_name = 'companies/edit_job_listing.html'
     context_object_name = 'job_listing'
 

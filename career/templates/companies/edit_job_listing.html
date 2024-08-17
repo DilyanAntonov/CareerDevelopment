@@ -1,14 +1,25 @@
 {% extends 'companies/company_base.html' %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block user_content %}
-<div class="container mt-3">
-    <h2>{% trans "Edit Job Listing" %}</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</button>
-        <a href="{% url 'companies:manage-job-listings' job_listing.company.pk %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
-    </form>
+<div class="container mt-4">
+    <h2 class="text-center">{% trans "Edit Job Listing" %}</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</button>
+                            <a href="{% url 'companies:manage-job-listings' job_listing.company.pk %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

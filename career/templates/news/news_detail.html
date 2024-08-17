@@ -2,12 +2,24 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container mt-3">
-    <h2>{{ news_article.title }}</h2>
-    <p><strong>{% trans "Posted by:" %}</strong> {{ news_article.company.name }}</p>
-    <p><strong>{% trans "Date Posted:" %}</strong> {{ news_article.date_posted|date:"F j, Y" }}</p>
-    <div>
-        {{ news_article.content }}
+<div class="container mt-5 pt-5">
+    <h1 class="mb-4">{{ news_article.title }}</h1>
+    <div class="mb-4 text-muted d-flex align-items-center">
+        {% if news_article.company.logo %}
+        <div class="me-3 mr-5">
+            <img src="{{ news_article.company.logo.url }}" alt="{{ news_article.company.name }}" class="img-fluid" style="max-width: 60px; max-height: 60px;">
+        </div>
+        {% endif %}
+        <div>
+            <p class="mb-1"><strong>{% trans "Posted by:" %}</strong>
+                <a href="{% url 'companies:company-info' pk=news_article.company.id %}" class="text-decoration-none">{{ news_article.company.name }}</a>
+            </p>
+            <p class="mb-0"><strong>{% trans "Date Posted:" %}</strong> {{ news_article.date_posted|date:"F j, Y" }}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="news-content">
+        {{ news_article.content|safe }}
     </div>
 </div>
 {% endblock %}

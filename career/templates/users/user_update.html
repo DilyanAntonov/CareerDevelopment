@@ -3,12 +3,56 @@
 
 {% block user_content %}
 <div class="container">
-    <h1 class="mt-4">{% trans "Update Profile" %}</h1>
-    <form method="POST" enctype="multipart/form-data">
+    <h1 class="mt-4 text-center">{% trans "Update Profile" %}</h1>
+    <form method="POST" enctype="multipart/form-data" class="mt-4">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+
+        <div class="row justify-content-center">
+            <!-- Profile Image -->
+            <div class="col-md-4 text-center mb-4">
+                <img src="{{ user.profile_image.url }}" class="img-fluid rounded-circle mb-3" alt="{% trans 'Current Profile Image' %}" style="width: 150px; height: 150px; object-fit: cover;">
+                <!-- Customizing the display of the file input -->
+                <input type="file" name="profile_image" class="form-control-file">
+            </div>
+
+            <!-- Personal Information -->
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="id_first_name">{% trans "First Name" %}</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_last_name">{% trans "Last Name" %}</label>
+                    {{ form.last_name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">{% trans "Email Address" %}</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_phone_number">{% trans "Phone Number" %}</label>
+                    {{ form.phone_number }}
+                </div>
+                <div class="form-group">
+                    <label for="id_address">{% trans "Address" %}</label>
+                    {{ form.address }}
+                </div>
+                <div class="form-group">
+                    <label for="id_description">{% trans "Description" %}</label>
+                    {{ form.description }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">{% trans "Update" %}</button>
+        </div>
     </form>
-    <a href="{% url 'users:password_change' %}" class="btn btn-secondary mt-3">{% trans "Change Password" %}</a>
+
+    <!-- Change Password Link -->
+    <div class="text-center mt-4">
+        <a href="{% url 'users:password_change' %}" class="btn btn-secondary">{% trans "Change Password" %}</a>
+    </div>
 </div>
 {% endblock %}

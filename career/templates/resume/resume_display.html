@@ -2,74 +2,92 @@
 {% load i18n %}
 
 {% block content %}
-  <div class="container mt-3">
-    <h2>{% trans "Resume for" %} {{ resume.user.get_full_name }}</h2>
-    <p><strong>{% trans "Email:" %}</strong> {{ resume.user.email }}</p>
-    <p><strong>{% trans "Phone:" %}</strong> {{ resume.user.phone_number }}</p>
+<div class="container mt-5 pt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center">{% trans "Resume for" %} {{ resume.user.get_full_name }}</h2>
+                    <p class="text-center text-muted"><strong>{% trans "Email:" %}</strong> {{ resume.user.email }}</p>
+                    <p class="text-center text-muted"><strong>{% trans "Phone:" %}</strong> {{ resume.user.phone_number }}</p>
 
-    {% if resume.summary %}
-      <p><strong>{% trans "Summary:" %}</strong> {{ resume.summary }}</p>
-    {% endif %}
+                    {% if resume.summary %}
+                    <hr>
+                    <h4>{% trans "Summary" %}</h4>
+                    <p>{{ resume.summary }}</p>
+                    {% endif %}
 
-    {% if resume.experience %}
-      <p><strong>{% trans "Experience:" %}</strong> {{ resume.experience }}</p>
-    {% endif %}
+                    {% if resume.experience %}
+                    <hr>
+                    <h4>{% trans "Experience" %}</h4>
+                    <p>{{ resume.experience }}</p>
+                    {% endif %}
 
-    {% if resume.education %}
-      <p><strong>{% trans "Education:" %}</strong> {{ resume.education }}</p>
-    {% endif %}
+                    {% if resume.education %}
+                    <hr>
+                    <h4>{% trans "Education" %}</h4>
+                    <p>{{ resume.education }}</p>
+                    {% endif %}
 
-    {% if resume.skills.exists %}
-      <p><strong>{% trans "Skills:" %}</strong>
-        <ul>
-          {% for skill in resume.skills.all %}
-            <li>{{ skill.name }}</li>
-          {% endfor %}
-        </ul>
-      </p>
-    {% endif %}
+                    {% if resume.skills.exists %}
+                    <hr>
+                    <h4>{% trans "Skills" %}</h4>
+                    <ul class="list-inline">
+                        {% for skill in resume.skills.all %}
+                        <li class="list-inline-item badge bg-dark text-white p-2">{{ skill.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
 
-    {% if resume.languages.exists %}
-      <p><strong>{% trans "Languages:" %}</strong>
-        <ul>
-          {% for language in resume.languages.all %}
-            <li>{{ language.name }}</li>
-          {% endfor %}
-        </ul>
-      </p>
-    {% endif %}
+                    {% if resume.languages.exists %}
+                    <hr>
+                    <h4>{% trans "Languages" %}</h4>
+                    <ul class="list-inline">
+                        {% for language in resume.languages.all %}
+                        <li class="list-inline-item badge bg-info p-2">{{ language.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
 
-    {% if resume.projects.exists %}
-      <p><strong>{% trans "Projects:" %}</strong>
-        <ul>
-          {% for project in resume.projects.all %}
-            <li>
-              <h4>{{ project.title }}</h4>
-              <p><strong>{% trans "Description:" %}</strong> {{ project.description }}</p>
-              {% if project.technologies %}
-                <p><strong>{% trans "Technologies:" %}</strong> {{ project.technologies }}</p>
-              {% endif %}
-              {% if project.link %}
-                <p><strong>{% trans "Link:" %}</strong> <a href="{{ project.link }}" target="_blank">{{ project.link }}</a></p>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-      </p>
-    {% endif %}
+                    {% if resume.projects.exists %}
+                    <hr>
+                    <h4>{% trans "Projects" %}</h4>
+                    <ul class="list-unstyled">
+                        {% for project in resume.projects.all %}
+                        <li class="mb-4">
+                            <h5>{{ project.title }}</h5>
+                            <p><strong>{% trans "Description:" %}</strong> {{ project.description }}</p>
+                            {% if project.technologies %}
+                            <p><strong>{% trans "Technologies:" %}</strong> {{ project.technologies }}</p>
+                            {% endif %}
+                            {% if project.link %}
+                            <p><strong>{% trans "Link:" %}</strong> <a href="{{ project.link }}" target="_blank">{{ project.link }}</a></p>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
 
-    {% if resume.educations.exists %}
-      <p><strong>{% trans "Educations:" %}</strong>
-        <ul>
-          {% for education in resume.educations.all %}
-            <li>{{ education.institution_name }} - {{ education.degree }}</li>
-          {% endfor %}
-        </ul>
-      </p>
-    {% endif %}
+                    {% if resume.educations.exists %}
+                    <hr>
+                    <h4>{% trans "Educations" %}</h4>
+                    <ul class="list-unstyled">
+                        {% for education in resume.educations.all %}
+                        <li>
+                            <p><strong>{{ education.institution_name }}</strong> - {{ education.course_name }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
 
-    {% if resume.interests %}
-      <p><strong>{% trans "Interests:" %}</strong> {{ resume.interests }}</p>
-    {% endif %}
-  </div>
+                    {% if resume.interests %}
+                    <hr>
+                    <h4>{% trans "Interests" %}</h4>
+                    <p>{{ resume.interests }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

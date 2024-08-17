@@ -1,11 +1,12 @@
 {% extends 'users/user_base.html' %}
-{% load i18n %}
+{% load i18n crispy_forms_tags %}
 
 {% block user_content %}
-<h2>{% trans "Add Education" %}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% trans "Save" %}</button>
-</form>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">{% trans "Add Education" %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+</div>
 {% endblock %}

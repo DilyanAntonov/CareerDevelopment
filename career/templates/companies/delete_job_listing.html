@@ -2,13 +2,23 @@
 {% load i18n %}
 
 {% block user_content %}
-<div class="container mt-3">
-    <h2>{% trans "Delete Job Listing" %}</h2>
-    <p>{% trans "Are you sure you want to delete the job listing" %} "{{ job_listing.title }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
-        <a href="{% url 'companies:manage-job-listings' job_listing.company.pk %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
-    </form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-danger">
+                <div class="card-body text-center">
+                    <h2 class="text-danger">{% trans "Delete Job Listing" %}</h2>
+                    <p class="mb-4">{% trans "Are you sure you want to delete the job listing" %} <strong>"{{ job_listing.title }}"</strong>?</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-danger me-3 mr-2">{% trans "Delete" %}</button>
+                            <a href="{% url 'companies:manage-job-listings' job_listing.company.pk %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

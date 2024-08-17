@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from career.home.views import SwitchLanguageView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,4 +15,4 @@ urlpatterns = [
     path('', include('career.home.urls', namespace='')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('switch_language/<str:language_code>/', SwitchLanguageView.as_view(), name='switch_language'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,13 +2,28 @@
 {% load i18n %}
 
 {% block user_content %}
-<div class="container">
-    <h1 class="mt-4">{% trans "Company account of" %} {{ company.name }}</h1>
-    <div class="row">
+<div class="container mt-4">
+    <h1 class="text-center">{% trans "Company Profile" %}</h1>
+    <div class="row mt-4">
+        <!-- Company Logo -->
+        <div class="col-md-4 text-center mb-4">
+            <img src="{{ company.logo.url }}" class="img-fluid mb-3 rounded-circle" alt="{% trans 'Profile Image' %}" style="width: 150px; height: 150px; object-fit: cover;">
+
+        </div>
+
+        <!-- Company Details -->
         <div class="col-md-8">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
-                    <p class="card-text"><strong>{% trans "Email:" %}</strong> {{ company.email }}</p>
+                    <h4 class="card-title">{{ company.name }}</h4>
+                    <p class="card-text"><strong>{% trans "Industry:" %}</strong> {{ company.industry }}</p>
+                    <p class="card-text"><strong>{% trans "Location:" %}</strong> {{ company.location }}</p>
+                    <p class="card-text"><strong>{% trans "Established Year:" %}</strong> {{ company.established_year }}</p>
+                    <p class="card-text"><strong>{% trans "Number of Employees:" %}</strong> {{ company.employees_num }}</p>
+                    <p class="card-text"><strong>{% trans "Website:" %}</strong> <a href="{{ company.website }}" target="_blank">{{ company.website }}</a></p>
+                    <p class="card-text"><strong>{% trans "Contact Email:" %}</strong> {{ company.contact_email }}</p>
+                    <p class="card-text"><strong>{% trans "EIK:" %}</strong> {{ company.eik }}</p>
+                    <p class="card-text mt-3"><strong>{% trans "Description:" %}</strong> {{ company.description }}</p>
                 </div>
             </div>
             <a href="{% url 'companies:company-update' %}" class="btn btn-primary mt-3">{% trans "Edit Profile" %}</a>

@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'career.users',
     "career.companies",
     "career.listings",
@@ -146,6 +148,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -160,3 +164,5 @@ LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 OPENAI_API_KEY = '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'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

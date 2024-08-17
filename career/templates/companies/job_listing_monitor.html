@@ -2,27 +2,41 @@
 {% load i18n %}
 
 {% block content %}
-  <div class="container mt-3">
-    <h2>{{ job_listing.title }} - {% trans "Applications" %}</h2>
-    <p>{{ job_listing.description }}</p>
-    <p>{{ job_listing.location }}</p>
+<div class="container mt-5 pt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">{{ job_listing.title }} - {% trans "Applications" %}</h2>
+            <p class="text-muted">{{ job_listing.location }}</p>
+            <p class="card-text">{{ job_listing.description }}</p>
+        </div>
+    </div>
 
-    <h3>{% trans "Applicants" %}</h3>
-    {% if applications %}
-      <ul class="list-group">
-        {% for application in applications %}
-          <li class="list-group-item">
-            <strong>{{ application.user.get_full_name }}</strong> - {{ application.user.email }}
-            <p>{{ application.cover_letter }}</p>
-            <p>{% trans "Status:" %} {{ application.status }}</p>
-            <a href="{% url 'resume:resume-display' application.user.pk %}" class="btn btn-primary">
-              {% trans "View Resume" %}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>{% trans "No applicants yet." %}</p>
-    {% endif %}
-  </div>
+    <div class="mt-5">
+        <h3 class="mb-4">{% trans "Applicants" %}</h3>
+        {% if applications %}
+        <div class="list-group">
+            {% for application in applications %}
+            <div class="list-group-item mb-3 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1"><strong>{{ application.user.get_full_name }}</strong></h5>
+                        <p class="mb-1"><a href="mailto:{{ application.user.email }}">{{ application.user.email }}</a></p>
+                        <p class="text-muted mb-1">{{ application.cover_letter|truncatewords:30 }}</p>
+                    </div>
+                    <div>
+                        <a href="{% url 'resume:resume-display' application.user.pk %}" class="btn btn-primary">
+                            {% trans "View Resume" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            {% trans "No applicants yet." %}
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
