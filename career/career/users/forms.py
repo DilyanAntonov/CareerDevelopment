@@ -51,6 +51,10 @@ class UserUpdateForm(forms.ModelForm):
             'profile_image': _('Upload your profile image'),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['profile_image'].widget.attrs.update({'class': 'form-control-file'})
+
 
 
 class CompanyUpdateForm(forms.ModelForm):

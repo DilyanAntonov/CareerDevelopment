@@ -1,0 +1,258 @@
+:root {
+    --primary-color: rgb(33, 67, 132);
+    --primary-color-hover: rgb(25, 48, 94);
+    --navbar-text-color: white;
+    --sidebar-link-color: #337ab7; /* Original sidebar link color */
+    --sidebar-link-hover-color: #286090; /* Hover color for sidebar links */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.navbar {
+    background-color: var(--primary-color) !important;
+}
+
+.navbar-brand, .nav-link {
+    color: var(--navbar-text-color) !important;
+    transition: color 0.3s;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #ddd !important;
+}
+
+.navbar-logo {
+    height: 40px; /* Adjust the height to fit within the navbar */
+    width: auto;  /* Automatically adjust width to maintain aspect ratio */
+    margin-right: 10px; /* Optional: add some space between the logo and the text */
+    object-fit: contain; /* Ensure the logo doesn't stretch or distort */
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #0066ff, #00c6ff);
+    padding: 120px 0;
+    color: white;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 1200px; /* Center content with margins */
+    padding: 0 15px; /* Apply a default padding */
+}
+
+.job-categories {
+    padding: 40px 0;
+}
+
+.category-box {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.category-box i {
+    margin-bottom: 10px;
+}
+
+.category-box h4 {
+    margin-top: 20px;
+}
+
+.category-box p {
+    margin-top: 10px;
+    color: #6c757d;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-footer {
+    background-color: transparent;
+    border-top: none;
+}
+
+.form-control, .custom-select {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.form-control:focus, .custom-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(33, 67, 132, 0.25);
+}
+
+.list-group-item {
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+.news-content p {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.news-content h2, .news-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.news-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sidebar Navigation */
+#sidebar {
+    background-color: #f8f9fa;
+    height: 100vh;
+    position: sticky;
+    top: 70px; /* Adjust according to your navbar height */
+    padding-top: 20px;
+}
+
+#sidebar .nav-link {
+    font-size: 1.1rem;
+    color: var(--sidebar-link-color); /* Use custom color for non-active links */
+    background-color: #e9ecef; /* Light background for non-active links */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+#sidebar .nav-link:hover {
+    background-color: var(--sidebar-link-hover-color);
+    color: white;
+}
+
+#sidebar .nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+#sidebar .nav-link i {
+    margin-right: 10px;
+}
+
+/* Main Content Padding */
+main {
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+/* Off-canvas Sidebar */
+.offcanvas {
+    width: 250px;
+}
+
+.offcanvas-body {
+    padding: 0;
+}
+
+/* Navbar toggle button for sidebar */
+.navbar-toggler {
+    margin-left: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    #sidebar {
+        position: relative;
+        height: auto;
+    }
+
+    main {
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    #sidebar {
+        position: sticky;
+        top: 70px;
+    }
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    margin-bottom: 15px;
+}
+
+.form-group input[type="file"] {
+    border: none;
+    padding: 0;
+}
+
+.form-group .btn-primary {
+    padding: 10px 20px;
+    font-size: 18px;
+}
+
+img.rounded-circle {
+    margin-bottom: 15px;
+}
+
+.text-center h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.job-categories .row {
+    display: flex;
+}
+.job-categories .col-md-4 {
+    display: flex;
+    flex-direction: column;
+}
+.job-categories .category-box {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -2,21 +2,35 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container mt-3">
-    <h2>{% trans "All News Articles" %}</h2>
-    <div class="d-flex justify-content-end mb-3">
+<div class="container mt-5 pt-5">
+    <h2 class="mb-4 text-center font-weight-bold">{% trans "All News Articles" %}</h2>
+
+    <!-- Sorting Dropdown -->
+    <div class="d-flex justify-content-end mb-4">
         <form method="get" id="sortForm">
-            <select name="sort" class="form-control" onchange="document.getElementById('sortForm').submit();">
+            <select name="sort" class="form-control custom-select" onchange="document.getElementById('sortForm').submit();">
                 <option value="newest" {% if sort_order == 'newest' %}selected{% endif %}>{% trans "Newest" %}</option>
                 <option value="oldest" {% if sort_order == 'oldest' %}selected{% endif %}>{% trans "Oldest" %}</option>
             </select>
         </form>
     </div>
+
+    <!-- News Articles List -->
     <div class="list-group">
         {% for article in news_articles %}
-        <a href="{% url 'news:news_detail' article.pk %}" class="list-group-item list-group-item-action">
-            <h4 class="mb-1">{{ article.title }}</h4>
-            <p class="mb-1">{% trans "Posted by:" %} {{ article.company.name }}</p>
+        <a href="{% url 'news:news_detail' article.pk %}" class="list-group-item list-group-item-action mb-3 p-4 shadow-sm text-decoration-none text-dark">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-2">{{ article.title }}</h4>
+                    <p class="mb-2 text-muted">{% trans "Posted by:" %} {{ article.company.name }}</p>
+                    <p class="mb-0 text-secondary"><small>{% trans "Published on:" %} {{ article.date_posted|date:"F j, Y" }}</small></p>
+                </div>
+                {% if article.company.logo %}
+                <div class="ml-3">
+                    <img src="{{ article.company.logo.url }}" alt="{{ article.company.name }}" class="img-fluid" style="max-width: 80px; max-height: 80px;">
+                </div>
+                {% endif %}
+            </div>
         </a>
         {% endfor %}
     </div>

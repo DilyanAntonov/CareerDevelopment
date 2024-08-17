@@ -1,14 +1,26 @@
 {% extends 'companies/company_base.html' %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block user_content %}
-<div class="container">
-    <h1 class="mt-4">{% trans "Update Company Profile" %}</h1>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
-    </form>
-    <a href="{% url 'companies:password_change' %}" class="btn btn-secondary mt-3">{% trans "Change Password" %}</a>
+<div class="container mt-4">
+    <h1 class="text-center mb-3">{% trans "Update Company Profile" %}</h1>
+    <div class="row justify-content-center">
+        <!-- Adjusted column width for a wider layout -->
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+                            <a href="{% url 'companies:password_change' %}" class="btn btn-secondary">{% trans "Change Password" %}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

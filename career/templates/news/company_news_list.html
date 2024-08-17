@@ -2,22 +2,31 @@
 {% load i18n %}
 
 {% block user_content %}
-<div class="container">
-    <h2>{% trans "Your News Articles" %}</h2>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{% trans "Your News Articles" %}</h2>
+        <a href="{% url 'news:news_create' %}" class="btn btn-primary">{% trans "Create New Article" %}</a>
+    </div>
 
-    <a href="{% url 'news:news_create' %}" class="btn btn-primary mb-3">{% trans "Create New Article" %}</a>
-
+    {% if news_articles %}
     <div class="list-group">
         {% for article in news_articles %}
-        <div class="list-group-item">
-            <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-1">{{ article.title }}</h4>
-                <small>{{ article.date_posted|date:"F j, Y" }}</small>
+        <div class="list-group-item mb-3 shadow-sm">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-1">{{ article.title }}</h4>
+                    <small class="text-muted">{{ article.date_posted|date:"F j, Y" }}</small>
+                </div>
+                <a href="{% url 'news:news_delete' article.pk %}" class="btn btn-outline-danger btn-sm">{% trans "Delete" %}</a>
             </div>
-            <p class="mb-1">{{ article.content|truncatewords:20 }}</p>
-            <a href="{% url 'news:news_delete' article.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+            <p class="text-muted mt-2">{{ article.content|truncatewords:20 }}</p>
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        {% trans "No news articles found. Click 'Create New Article' to add one." %}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

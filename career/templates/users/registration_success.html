@@ -2,6 +2,19 @@
 {% load i18n %}
 
 {% block content %}
-<h1>{% trans "Thank You for Registering!" %}</h1>
-<p>{% trans "Your registration was successful." %}</p>
+<div class="container mt-5 pt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm text-center">
+        <div class="card-body">
+          <h1 class="card-title">{% trans "Thank You for Registering!" %}</h1>
+          <p class="lead">{% trans "Your registration was successful. You can now log in and start using the platform." %}</p>
+          <div class="mt-4">
+            <a href="{% url 'users:login' %}" class="btn btn-primary">{% trans "Go to Login" %}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

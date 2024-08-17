@@ -2,47 +2,85 @@
 {% load i18n %}
 
 {% block user_content %}
-{% if object %}
-    <h1>{{ user.get_full_name }}{% trans "'s Resume" %}</h1>
-    <div>
-        <h2>{% trans "Summary" %}</h2>
-        <p>{{ object.summary }}</p>
+<div class="container mt-4">
+    {% if object %}
+        <h1 class="text-center mb-4">{{ user.get_full_name }}{% trans "'s Resume" %}</h1>
 
-        {% if object.educations.exists %}
-        <h2>{% trans "Education" %}</h2>
-            {% for education in object.educations.all %}
-                <li>{{ education.course_name }} {% trans "from" %} {{ education.institution_name }}</li>
-            {% endfor %}
-        {% endif %}
+        <div class="resume-section">
+            <!-- Summary Section -->
+            <div class="mb-4">
+                <h2 class="h4">{% trans "Summary" %}</h2>
+                <p class="text-muted">{{ object.summary }}</p>
+            </div>
 
-        <h2>{% trans "Experience" %}</h2>
-        <p>{{ object.experience }}</p>
+            <!-- Education Section -->
+            {% if object.educations.exists %}
+            <div class="mb-4">
+                <h2 class="h4">{% trans "Education" %}</h2>
+                <ul class="list-group list-group-flush">
+                    {% for education in object.educations.all %}
+                        <li class="list-group-item">
+                            <strong>{{ education.course_name }}</strong>
+                            <span class="text-muted">{% trans "from" %} {{ education.institution_name }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
 
-        <h2>{% trans "Skills" %}</h2>
-        <ul>
-            {% for skill in object.skills.all %}
-                <li>{{ skill.name }}</li>
-            {% endfor %}
-        </ul>
+            <!-- Experience Section -->
+            <div class="mb-4">
+                <h2 class="h4">{% trans "Experience" %}</h2>
+                <p class="text-muted">{{ object.experience }}</p>
+            </div>
 
-        {% if object.projects.exists %}
-        <h2>{% trans "Projects" %}</h2>
-        <ul>
-            {% for project in object.projects.all %}
-                <li>{{ project.name }} - {{ project.description }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+            <!-- Skills Section -->
+            <div class="mb-4">
+                <h2 class="h4">{% trans "Skills" %}</h2>
+                <ul class="list-inline">
+                    {% for skill in object.skills.all %}
+                        <li class="list-inline-item badge badge-secondary p-2">{{ skill.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-        <h2>{% trans "Certifications" %}</h2>
-        <p>{{ object.certifications }}</p>
+            <!-- Projects Section -->
+            {% if object.projects.exists %}
+            <div class="mb-4">
+                <h2 class="h4">{% trans "Projects" %}</h2>
+                <ul class="list-group list-group-flush">
+                    {% for project in object.projects.all %}
+                        <li class="list-group-item">
+                            <strong>{{ project.name }}</strong> - <span class="text-muted">{{ project.description }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
 
-        <h2>{% trans "Interests" %}</h2>
-        <p>{{ object.interests }}</p>
-    </div>
-    <a class="btn btn-primary btn-lg" href="{% url 'resume:update-resume' %}" role="button">{% trans "Edit" %}</a>
-{% else %}
-    <p>{% trans "No resume found. Create your resume to showcase your achievements." %}</p>
-    <a class="btn btn-primary btn-lg" href="{% url 'resume:create-resume' %}" role="button">{% trans "Create Resume" %}</a>
-{% endif %}
+            <!-- Certifications Section -->
+            <div class="mb-4">
+                <h2 class="h4">{% trans "Certifications" %}</h2>
+                <p class="text-muted">{{ object.certifications }}</p>
+            </div>
+
+            <!-- Interests Section -->
+            <div class="mb-4">
+                <h2 class="h4">{% trans "Interests" %}</h2>
+                <p class="text-muted">{{ object.interests }}</p>
+            </div>
+        </div>
+
+        <!-- Edit Button -->
+        <div class="text-center mt-4">
+            <a class="btn btn-primary btn-lg" href="{% url 'resume:update-resume' %}" role="button">{% trans "Edit" %}</a>
+        </div>
+    {% else %}
+        <!-- No Resume Section -->
+        <div class="text-center">
+            <p class="text-muted">{% trans "No resume found. Create your resume to showcase your achievements." %}</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'resume:create-resume' %}" role="button">{% trans "Create Resume" %}</a>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

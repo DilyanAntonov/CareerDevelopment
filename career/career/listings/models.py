@@ -28,7 +28,6 @@ class JobListing(models.Model):
         default=FULL_TIME,
     )
     posted_date = models.DateField(auto_now_add=True)
-    application_deadline = models.DateField()
     salary_min = models.IntegerField(blank=True, null=True)
     salary_max = models.IntegerField(blank=True, null=True)
 

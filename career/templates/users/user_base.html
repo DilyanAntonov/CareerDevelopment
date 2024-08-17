@@ -2,41 +2,45 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <!-- Fixed sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-fixed">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'users:user-detail' pk=user.pk %}">
-                            {% trans "User Detail" %}
+<div class="container-fluid mt-5">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item pt-3">
+                        <a class="nav-link" aria-current="page" href="{% url 'users:user-detail' pk=user.pk %}">
+                            <i class="fas fa-user-circle mr-2"></i>
+                            <span class="ms-2 d-none d-sm-inline">{% trans "User Detail" %}</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-3">
                         <a class="nav-link" href="{% url 'resume:resume-detail' %}">
-                            {% trans "Resume" %}
+                            <i class="fas fa-file-alt mr-2"></i>
+                            <span class="ms-2 d-none d-sm-inline">{% trans "Resume" %}</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-3">
                         <a class="nav-link" href="{% url 'resume:education-list' %}">
-                            {% trans "Education" %}
+                            <i class="fas fa-graduation-cap mr-2"></i>
+                            <span class="ms-2 d-none d-sm-inline">{% trans "Education" %}</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-3">
                         <a class="nav-link" href="{% url 'resume:projects-list' %}">
-                            {% trans "Projects" %}
+                            <i class="fas fa-project-diagram mr-2"></i>
+                            <span class="ms-2 d-none d-sm-inline">{% trans "Projects" %}</span>
                         </a>
                     </li>
                 </ul>
+                <hr>
             </div>
-        </nav>
-
-        <!-- Main content area -->
-        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-            {% block user_content %}
-            {% endblock %}
-        </main>
+        </div>
+        <div class="col py-3">
+            <div class="content-container" style="max-width: 800px; width: 100%; margin: 0 auto;">
+                {% block user_content %}
+                {% endblock %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

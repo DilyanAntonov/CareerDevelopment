@@ -2,62 +2,84 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container mt-3">
-    <h2>{% trans "Job Listings" %}</h2>
+<div class="container mt-5 pt-5">
+    <h2 class="mb-4 text-center font-weight-bold">{% trans "Job Listings" %}</h2>
 
-    <form method="get">
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                <label for="company">{% trans "Company" %}</label>
-                <select name="company" id="company" class="form-control">
-                    <option value="">---------</option>
-                    {% for company in filterset.form.fields.company.queryset %}
-                    <option value="{{ company.id }}" {% if request.GET.company == company.id|stringformat:"s" %}selected{% endif %}>
-                        {{ company.name }}
-                    </option>
-                    {% endfor %}
-                </select>
+    <!-- Filter Section -->
+    <form method="get" class="mb-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="title">{% trans "Job Title" %}</label>
+                    <input type="text" name="title" id="title" class="form-control" placeholder="{% trans 'e.g. Developer' %}" value="{{ request.GET.title }}">
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label for="title">{% trans "Job Title" %}</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ request.GET.title }}">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="company">{% trans "Company" %}</label>
+                    <select name="company" id="company" class="form-control custom-select">
+                        <option value="">{% trans "Select Company" %}</option>
+                        {% for company in filterset.form.fields.company.queryset %}
+                        <option value="{{ company.id }}" {% if request.GET.company == company.id|stringformat:"s" %}selected{% endif %}>
+                            {{ company.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label for="employment_type">{% trans "Employment Type" %}</label>
-                <select name="employment_type" id="employment_type" class="form-control">
-                    <option value="">---------</option>
-                    {% for key, value in jobs.model.EMPLOYMENT_TYPE_CHOICES %}
-                    <option value="{{ key }}" {% if request.GET.employment_type == key %}selected{% endif %}>
-                        {{ value }}
-                    </option>
-                    {% endfor %}
-                </select>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="employment_type">{% trans "Employment Type" %}</label>
+                    <select name="employment_type" id="employment_type" class="form-control custom-select">
+                        <option value="">{% trans "Select Type" %}</option>
+                        {% for key, value in jobs.model.EMPLOYMENT_TYPE_CHOICES %}
+                        <option value="{{ key }}" {% if request.GET.employment_type == key %}selected{% endif %}>
+                            {{ value }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label for="min_salary">{% trans "Min Salary" %}</label>
-                <input type="number" name="salary_min" id="min_salary" class="form-control" value="{{ request.GET.salary_min }}">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="min_salary">{% trans "Min Salary" %}</label>
+                    <input type="number" name="salary_min" id="min_salary" class="form-control" placeholder="{% trans 'Min Salary' %}" value="{{ request.GET.salary_min }}">
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label for="max_salary">{% trans "Max Salary" %}</label>
-                <input type="number" name="salary_max" id="max_salary" class="form-control" value="{{ request.GET.salary_max }}">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="max_salary">{% trans "Max Salary" %}</label>
+                    <input type="number" name="salary_max" id="max_salary" class="form-control" placeholder="{% trans 'Max Salary' %}" value="{{ request.GET.salary_max }}">
+                </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
-        <a href="{% url 'listings:list' %}" class="btn btn-secondary">{% trans "Clear" %}</a>
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mr-2">{% trans "Filter" %}</button>
+                <a href="{% url 'listings:list' %}" class="btn btn-secondary">{% trans "Clear" %}</a>
+            </div>
+        </div>
     </form>
 
-    <div class="list-group mt-3">
+    <!-- Job Listings Section -->
+    <div class="list-group pb-5">
         {% for job in jobs %}
-        <a href="{% url 'listings:detail' pk=job.pk %}" class="list-group-item list-group-item-action">
-            <h4 class="list-group-item-heading">{{ job.title }}</h4>
-            <p class="list-group-item-text">{{ job.description|truncatewords:20 }}</p>
-        </a>
+            <a href="{% url 'listings:detail' pk=job.pk %}" class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ job.title }}</h5>
+                    <small>{{ job.created_at|date:"F j, Y" }}</small>
+                </div>
+                <h6 class="text-muted">{{ job.company.name }}</h6>
+                <p class="mb-1">{{ job.description|truncatewords:20 }}</p>
+                <small>{% trans "Employment Type:" %} {{ job.get_employment_type_display }}</small>
+            </a>
         {% endfor %}
     </div>
 
+    <!-- Pagination -->
     {% if is_paginated %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
             <li class="page-item">
                 <a class="page-link" href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">

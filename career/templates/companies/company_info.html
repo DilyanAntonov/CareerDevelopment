@@ -2,11 +2,11 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container mt-3">
+<div class="container mt-5 pt-5">
     <div class="row">
         <div class="col-md-4">
             {% if company.logo %}
-            <img src="{{ company.logo.url }}" class="img-fluid" alt="{{ company.name }}">
+            <img src="{{ company.logo.url }}" class="img-fluid mb-3" alt="{{ company.name }}">
             {% endif %}
             <h2>{{ company.name }}</h2>
             <p>{{ company.description }}</p>
@@ -21,7 +21,7 @@
             <h2>{% trans "Available Job Listings" %}</h2>
             <div class="list-group mt-3">
                 {% for job in job_listings %}
-                <a href="{% url 'listings:detail' pk=job.pk %}" class="list-group-item list-group-item-action">
+                <a href="{% url 'listings:detail' pk=job.pk %}" class="list-group-item list-group-item-action mt-3">
                     <h4 class="list-group-item-heading">{{ job.title }}</h4>
                     <p class="list-group-item-text">{{ job.description|truncatewords:20 }}</p>
                 </a>

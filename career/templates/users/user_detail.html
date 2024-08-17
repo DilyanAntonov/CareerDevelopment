@@ -1,18 +1,35 @@
 {% extends 'users/user_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block user_content %}
-<div class="container">
-    <h1 class="mt-4">{% trans "Profile of" %} {{ user.first_name }}</h1>
+<div class="container mt-4">
     <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text"><strong>{% trans "Email:" %}</strong> {{ user.email }}</p>
-                </div>
+        <div class="col-md-4">
+            <!-- Profile Image and Basic Info -->
+            <div class="profile-section mb-4 text-center">
+                <img src="{{ user.profile_image.url }}" class="img-fluid mb-3 rounded-circle" alt="{% trans 'Profile Image' %}" style="width: 150px; height: 150px; object-fit: cover;">
+                <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+                <p class="text-muted">{% trans "User since:" %} {{ user.date_joined|date:"F Y" }}</p>
             </div>
         </div>
+
+        <div class="col-md-8">
+            <!-- User Information -->
+            <div class="info-section mb-4">
+                <h4>{% trans "Profile of" %} {{ user.first_name }}</h4>
+                <hr>
+                <p><strong>{% trans "Email:" %}</strong> {{ user.email }}</p>
+                <p><strong>{% trans "Phone Number:" %}</strong> {{ user.phone_number|default:"N/A" }}</p>
+                <p><strong>{% trans "Address:" %}</strong> {{ user.address|default:"N/A" }}</p>
+                <p><strong>{% trans "Student Number:" %}</strong> {{ user.stud_num|default:"N/A" }}</p>
+                {% if user.description %}
+                <p><strong>{% trans "Description:" %}</strong> {{ user.description }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Edit Profile Button -->
+            <a href="{% url 'users:user-update' %}" class="btn btn-primary btn-block">{% trans "Edit Profile" %}</a>
+        </div>
     </div>
-    <a href="{% url 'users:user-update' %}" class="btn btn-primary">{% trans "Edit Profile" %}</a>
 </div>
 {% endblock %}

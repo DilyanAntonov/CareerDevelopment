@@ -2,15 +2,40 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container">
-    <div class="jumbotron mt-4">
-        <h1>{% trans "Welcome to Our Job Listing Site!" %}</h1>
-        <p class="lead">{% trans "Find jobs or post job listings to attract talents." %}</p>
-        <hr class="my-4">
-        <p>{% trans "Use this platform to explore opportunities or find the right candidate for your company." %}</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="{% url 'listings:list' %}" role="button">{% trans "Browse Jobs" %}</a>
-        </p>
+<!-- Hero Section - Full Width -->
+<div class="container-fluid hero-section">
+    <div class="hero-content">
+        <h1 class="display-4">{% trans "Welcome to Our Job Listing Site!" %}</h1>
+        <p class="lead mb-4">{% trans "Find jobs or post job listings to attract top talents." %}</p>
+        <a class="btn btn-light btn-lg" href="{% url 'listings:list' %}" role="button">{% trans "Browse Jobs" %}</a>
+    </div>
+</div>
+
+<!-- Job Categories Section - Centered with Margins -->
+<div class="container job-categories mt-2">
+    <h2 class="text-center font-weight-bold mb-2">{% trans "Empower Your Career Journey" %}</h2>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="category-box text-center p-4">
+                <i class="fas fa-file-alt fa-3x text-primary"></i>
+                <h4 class="mt-3">{% trans "Craft Your Resume" %}</h4>
+                <p>{% trans "Build your student-focused resume" %}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="category-box text-center p-4">
+                <i class="fas fa-chart-line fa-3x text-primary"></i>
+                <h4 class="mt-3">{% trans "Industry Insights" %}</h4>
+                <p>{% trans "Stay updated with the latest IT news and job market statistics" %}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="category-box text-center p-4">
+                <i class="fas fa-robot fa-3x text-primary"></i>
+                <h4 class="mt-3">{% trans "AI-Powered Applications" %}</h4>
+                <p>{% trans "Smart job matching powered by AI" %}</p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

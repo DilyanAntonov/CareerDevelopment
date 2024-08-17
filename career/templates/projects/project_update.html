@@ -1,14 +1,16 @@
 {% extends 'users/user_base.html' %}
-{% load i18n %}
+{% load i18n crispy_forms_tags %}
 
 {% block user_content %}
-<h2>{% trans "Update Project" %}</h2>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">{% trans "Update Project" %}</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">{% trans "Update Project" %}</button>
-</form>
-
-<a href="{% url 'resume:projects-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+    <form method="post">
+        {% csrf_token %}
+        {% crispy form %}
+        <div class="form-group text-center mt-4">
+            <a href="{% url 'resume:projects-list' %}" class="btn btn-secondary btn-lg ml-2">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
