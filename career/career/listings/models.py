@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 from career.companies.models import Company
 
 
@@ -10,11 +12,11 @@ class JobListing(models.Model):
     INTERN = 'IN'
 
     EMPLOYMENT_TYPE_CHOICES = [
-        (FULL_TIME, 'Full-time'),
-        (PART_TIME, 'Part-time'),
-        (CONTRACT, 'Contract'),
-        (TEMPORARY, 'Temporary'),
-        (INTERN, 'Intern'),
+        (FULL_TIME, _('Full-time')),
+        (PART_TIME, _('Part-time')),
+        (CONTRACT, _('Contract')),
+        (TEMPORARY, _('Temporary')),
+        (INTERN, _('Intern')),
     ]
 
     company = models.ForeignKey(Company, on_delete=models.CASCADE)

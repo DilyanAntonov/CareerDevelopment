@@ -18,6 +18,7 @@ from .constants import OPENAI_PROMPT
 from openai import OpenAI
 from openai.types.chat import ChatCompletion
 
+
 class JobListingFilter(filters.FilterSet):
     company = filters.ModelChoiceFilter(queryset=Company.objects.all(), widget=forms.Select)
     title = filters.CharFilter(field_name='title', lookup_expr='icontains')
@@ -83,7 +84,6 @@ class JobListingDetailView(LoginRequiredMixin, DetailView):
 
 
 class JobFitScoreView(LoginRequiredMixin, View):
-
     def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body)
@@ -97,7 +97,7 @@ class JobFitScoreView(LoginRequiredMixin, View):
                 'summary': resume.summary,
                 'education': resume.education,
                 'experience': resume.experience,
-                'skills': [skill.name for skill in resume.skills.all()],
+                'skills': resume.skills,
                 'languages': [language.name for language in resume.languages.all()],
                 'projects': [[project.title, project.technologies, project.description] for project in resume.projects.all()],
                 'interests': resume.interests,
@@ -111,9 +111,6 @@ class JobFitScoreView(LoginRequiredMixin, View):
                 'employment_type': job.get_employment_type_display(),
             }
 
-            prompt = "Analyze the following resume data: {resume_data} and job listing data: {job_data} and give a score from 0 to 10 of how good of a fit it is. Please return the result in the following JSON format: {{\"text\": \"<analysis>\", \"score\": <score>}}. Keep the analysis very short, 2-3 sentences."
-
-            # openai.api_key = settings.OPENAI_API_KEY
             client = OpenAI()
             result: ChatCompletion = client.chat.completions.create(
                 model="gpt-4o-mini",

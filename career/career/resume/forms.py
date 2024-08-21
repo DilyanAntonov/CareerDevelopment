@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Resume, Skill, Project, Education
+from .models import Resume, Project, Education
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Fieldset, ButtonHolder, Submit, Div
@@ -15,7 +15,6 @@ class ResumeForm(forms.ModelForm):
         if user is not None:
             self.fields['projects'].queryset = Project.objects.filter(user=user)
             self.fields['educations'].queryset = Education.objects.filter(user=user)
-            self.fields['skills'].queryset = Skill.objects.all()
 
         self.helper = FormHelper()
         self.helper.form_method = 'post'
@@ -35,7 +34,7 @@ class ResumeForm(forms.ModelForm):
             ),
             Fieldset(
                 'Skills',
-                InlineCheckboxes('skills'),
+                Field('skills', css_class='form-control'),
             ),
             Fieldset(
                 'Interests',
@@ -49,6 +48,7 @@ class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
         fields = ['summary', 'educations', 'experience', 'projects', 'skills', 'interests']
+
 
 
 class ProjectForm(forms.ModelForm):

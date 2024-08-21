@@ -183,4 +183,5 @@ class JobListingMonitorView(LoginRequiredMixin, CompanyRequiredMixin, DetailView
         applications = Application.objects.filter(job_listing=job_listing).select_related('user', 'job_listing')
 
         context['applications'] = applications
+        context['applicant_count'] = applications.count()
         return context
