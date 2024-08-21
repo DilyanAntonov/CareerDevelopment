@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-4">
             {% if company.logo %}
-            <img src="{{ company.logo.url }}" class="img-fluid mb-3" alt="{{ company.name }}">
+            <img src="{{ company.logo.url }}" class="img-fluid mb-3" alt="{{ company.name }}" style="max-width: 150px; height: auto;">
             {% endif %}
             <h2>{{ company.name }}</h2>
             <p>{{ company.description }}</p>

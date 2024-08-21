@@ -3,7 +3,10 @@
 
 {% block user_content %}
 <div class="container mt-4">
-    <h2 class="text-center mb-4">{% trans "Educations" %}</h2>
+    <h2 class="text-center mb-2">{% trans "Education" %}</h2>
+    <p class="text-center text-muted mb-4">
+        {% trans "Add your education and courses" %}
+    </p>
     <div class="text-center mb-4">
         <a class="btn btn-primary btn-lg" href="{% url 'resume:create-education' %}" role="button">{% trans "Add Education" %}</a>
     </div>

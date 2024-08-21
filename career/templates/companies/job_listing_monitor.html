@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container mt-5 pt-4">
+<div class="container mt-5 pt-5">
     <div class="card shadow-sm">
         <div class="card-body">
             <h2 class="card-title">{{ job_listing.title }} - {% trans "Applications" %}</h2>
@@ -12,7 +12,7 @@
     </div>
 
     <div class="mt-5">
-        <h3 class="mb-4">{% trans "Applicants" %}</h3>
+        <h3 class="mb-4">{% trans "Applicants" %} - {{ applicant_count }}</h3>
         {% if applications %}
         <div class="list-group">
             {% for application in applications %}

@@ -4,7 +4,7 @@
 {% block user_content %}
 <div class="container mt-4">
     {% if object %}
-        <h1 class="text-center mb-4">{{ user.get_full_name }}{% trans "'s Resume" %}</h1>
+        <h1 class="text-center mb-4">{{ user.get_full_name }} {% trans "'s Resume" %}</h1>
 
         <div class="resume-section">
             <!-- Summary Section -->
@@ -37,11 +37,7 @@
             <!-- Skills Section -->
             <div class="mb-4">
                 <h2 class="h4">{% trans "Skills" %}</h2>
-                <ul class="list-inline">
-                    {% for skill in object.skills.all %}
-                        <li class="list-inline-item badge badge-secondary p-2">{{ skill.name }}</li>
-                    {% endfor %}
-                </ul>
+                <p class="text-muted">{{ object.skills }}</p>
             </div>
 
             <!-- Projects Section -->
@@ -57,12 +53,6 @@
                 </ul>
             </div>
             {% endif %}
-
-            <!-- Certifications Section -->
-            <div class="mb-4">
-                <h2 class="h4">{% trans "Certifications" %}</h2>
-                <p class="text-muted">{{ object.certifications }}</p>
-            </div>
 
             <!-- Interests Section -->
             <div class="mb-4">
