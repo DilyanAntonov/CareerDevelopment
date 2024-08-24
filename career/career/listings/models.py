@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from django_ckeditor_5.fields import CKEditor5Field
+
 from career.companies.models import Company
 
 
@@ -21,7 +23,7 @@ class JobListing(models.Model):
 
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = CKEditor5Field('Description', config_name='extends')
     requirements = models.TextField()
     location = models.CharField(max_length=255)
     employment_type = models.CharField(

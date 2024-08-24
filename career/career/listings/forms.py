@@ -1,10 +1,15 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 from .models import JobListing
 
 
 class JobListingForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["description"].required = False
+
     class Meta:
         model = JobListing
         fields = [
@@ -30,7 +35,9 @@ class JobListingForm(forms.ModelForm):
             'salary_max': _('Enter the maximum salary for this job'),
         }
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 4, 'cols': 15}),
+            "content": CKEditor5Widget(
+                attrs={"class": "django_ckeditor_5"}, config_name="extends"
+            ),
             'requirements': forms.Textarea(attrs={'rows': 4, 'cols': 15}),
             'employment_type': forms.Select(choices=JobListing.EMPLOYMENT_TYPE_CHOICES),
         }

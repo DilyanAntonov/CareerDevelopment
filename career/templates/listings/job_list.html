@@ -70,8 +70,7 @@
                     <small>{{ job.created_at|date:"F j, Y" }}</small>
                 </div>
                 <h6 class="text-muted">{{ job.company.name }}</h6>
-                <p class="mb-1">{{ job.description|truncatewords:20 }}</p>
-                <small>{% trans "Employment Type:" %} {{ job.get_employment_type_display }}</small>
+                <small>{{ job.get_employment_type_display }}</small>
             </a>
         {% endfor %}
     </div>
