@@ -14,7 +14,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,7 +29,6 @@ SECRET_KEY = 'django-insecure-k7crz34%za24!(%+0wp^ou67jv-blrrkau26lpi-(4gtb=_cto
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -50,7 +48,8 @@ INSTALLED_APPS = [
     "career.home",
     "career.application",
     "career.trends",
-    "career.news"
+    "career.news",
+    "django_ckeditor_5"
 ]
 
 MIDDLEWARE = [
@@ -85,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'career.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -118,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -138,7 +135,6 @@ LOCALE_PATHS = [
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -153,7 +149,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -166,3 +161,38 @@ LOGOUT_REDIRECT_URL = 'index'
 OPENAI_API_KEY = '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'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
+                    'bulletedList', 'numberedList', 'blockQuote', ],
+
+    },
+    'extends': {
+        'blockToolbar': [
+            'paragraph', 'heading1', 'heading2', 'heading3',
+            '|',
+            'bulletedList', 'numberedList',
+            '|',
+            'blockQuote',
+        ],
+        'toolbar': ['heading', '|', 'bold', 'italic', 'link', 'underline',
+                    'code', 'bulletedList', 'numberedList''|', 'fontSize'],
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'}
+            ]
+        }
+    },
+    'list': {
+        'properties': {
+            'styles': 'true',
+            'startIndex': 'true',
+            'reversed': 'true',
+        }
+    }
+}

@@ -15,4 +15,5 @@ urlpatterns = [
     path('', include('career.home.urls', namespace='')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('switch_language/<str:language_code>/', SwitchLanguageView.as_view(), name='switch_language'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
+  ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

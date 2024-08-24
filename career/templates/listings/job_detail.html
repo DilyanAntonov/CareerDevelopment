@@ -3,56 +3,80 @@
 
 {% block content %}
 <div class="container mt-5 pt-5">
-    <h1 class="display-4 mb-3">{{ job.title }}</h1>
-    <h6 class="text-muted mb-4">
-        {{ job.get_employment_type_display }} {% trans "at" %}
-        <a href="{% url 'companies:company-info' pk=job.company.id %}" class="text-decoration-none">{{ job.company.name }}</a>
-    </h6>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <!-- Title and Company Information -->
+            <h1 class="display-4 mb-3">{{ job.title }}</h1>
+            <h6 class="text-muted mb-4">
+                {{ job.get_employment_type_display }} {% trans "at" %}
+                <a href="{% url 'companies:company-info' pk=job.company.id %}" class="text-decoration-none">{{ job.company.name }}</a>
+            </h6>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <p><strong>{% trans "Location:" %}</strong> {{ job.location }}</p>
-            <p><strong>{% trans "Salary Range:" %}</strong> {{ job.salary_min }} - {{ job.salary_max }}</p>
-            <p><strong>{% trans "Posted Date:" %}</strong> {{ job.posted_date }}</p>
-            <p><strong>{% trans "Application Deadline:" %}</strong> {{ job.application_deadline }}</p>
-        </div>
-        <div class="col-md-6 mb-3">
-            <p><strong>{% trans "Description:" %}</strong></p>
-            <p>{{ job.description }}</p>
-            <p><strong>{% trans "Requirements:" %}</strong></p>
-            <p>{{ job.requirements }}</p>
-        </div>
-    </div>
+            <!-- Description and Requirements -->
+            <div class="mb-4">
+                <p><i class="fas fa-briefcase mr-2"></i><strong>{% trans "Description:" %}</strong></p>
+                <p>{{ job.description|safe }}</p>
+                <p><i class="fas fa-tasks mr-2"></i><strong>{% trans "Requirements:" %}</strong></p>
+                <p>{{ job.requirements }}</p>
+            </div>
 
-    <div class="text-right mt-4">
-        <form method="post">
-            {% csrf_token %}
-            {% if user_has_applied %}
-                <button type="button" class="btn btn-secondary btn-lg" disabled="disabled">{% trans "Already Applied" %}</button>
-            {% elif user_has_resume %}
-                <button type="submit" class="btn btn-primary btn-lg">{% trans "Apply Now" %}</button>
-                <button type="button" id="fit-score-btn" data-job-id="{{ job.id }}" class="btn btn-info btn-lg ml-2">{% trans "AI Analysis" %}</button>
-                <button type="button" id="ai-info" class="btn btn-outline-info btn-lg ml-2">?</button>
-            {% else %}
-                <button type="button" class="btn btn-secondary btn-lg" disabled="disabled">{% trans "Apply Now (No Resume Uploaded)" %}</button>
-            {% endif %}
-        </form>
+            <!-- Location, Salary, and Posted Date -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <p><i class="fas fa-map-marker-alt mr-2"></i><strong>{% trans "Location:" %}</strong> {{ job.location }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p><i class="fas fa-dollar-sign mr-2"></i><strong>{% trans "Salary Range:" %}</strong> {{ job.salary_min }} - {{ job.salary_max }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p><i class="fas fa-calendar-alt mr-2"></i><strong>{% trans "Posted Date:" %}</strong> {{ job.posted_date }}</p>
+                </div>
+            </div>
+
+            <!-- Apply Section -->
+            <div class="text-right mt-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if user_has_applied %}
+                        <button type="button" class="btn btn-secondary btn-lg" disabled="disabled">
+                            <i class="fas fa-check-circle mr-2"></i>{% trans "Already Applied" %}
+                        </button>
+                    {% elif user_has_resume %}
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane mr-2"></i>{% trans "Apply Now" %}
+                        </button>
+                        <button type="button" id="fit-score-btn" data-job-id="{{ job.id }}" class="btn btn-info btn-lg ml-2">
+                            <i class="fas fa-cogs mr-2"></i>{% trans "AI Analysis" %}
+                        </button>
+                        <button type="button" id="ai-info" class="btn btn-outline-info btn-lg ml-2">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    {% else %}
+                        <button type="button" class="btn btn-secondary btn-lg" disabled="disabled">
+                            <i class="fas fa-exclamation-circle mr-2"></i>{% trans "Apply Now (No Resume Uploaded)" %}
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
 <!-- Modal for displaying the fit score -->
 <div class="modal fade" id="fitScoreModal" tabindex="-1" role="dialog" aria-labelledby="fitScoreModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="fitScoreModalLabel">{% trans "Fit Score" %}</h5>
+        <h5 class="modal-title" id="fitScoreModalLabel">
+            <i class="fas fa-balance-scale mr-2"></i>{% trans "Fit Score" %}
+        </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <p id="fit-score-content" class="display-4 font-weight-bold text-center">{% trans "Loading..." %}</p>
-        <p id="analysis-content" class="mt-4"></p>
+      <div class="modal-body text-center">
+        <p id="fit-score-content" class="display-4 font-weight-bold text-primary">{% trans "Loading..." %}</p>
+        <p id="analysis-content" class="mt-4 text-muted"></p>
       </div>
     </div>
   </div>
@@ -60,10 +84,12 @@
 
 <!-- Modal for displaying info -->
 <div class="modal fade" id="AIinfoDiv" tabindex="-1" role="dialog" aria-labelledby="AIinfoDivLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="AIinfoDivLabel">{% trans "AI Analysis Info" %}</h5>
+        <h5 class="modal-title" id="AIinfoDivLabel">
+            <i class="fas fa-info-circle mr-2"></i>{% trans "AI Analysis Info" %}
+        </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -130,7 +156,6 @@ document.getElementById('fit-score-btn').addEventListener('click', function() {
         $('#fitScoreModal').modal('show');
     });
 });
-
 
 document.getElementById('ai-info').addEventListener('click', function() {
     $('#AIinfoDiv').modal('show');
