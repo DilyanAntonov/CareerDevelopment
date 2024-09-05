@@ -25,11 +25,15 @@ def fetch_and_save_job_trends():
 
     print(f"Data saved for {today}")
 
+
 def parse_data(soup):
     data = {
         "Python": 0,
         "Java": 0,
-        "PHP": 0
+        "PHP": 0,
+        ".NET": 0,
+        "Node.js": 0,
+        "Go": 0,
     }
 
     terms = soup.find_all("div", class_="child-term")
