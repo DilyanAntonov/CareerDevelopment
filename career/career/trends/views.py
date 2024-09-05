@@ -5,8 +5,6 @@ from .models import JobTrend
 class JobTrendsView(TemplateView):
     template_name = 'trends/job_trends.html'
 
-    # fetch_and_save_job_trends()
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
