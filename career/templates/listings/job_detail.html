@@ -37,24 +37,27 @@
             <div class="text-right mt-4">
                 <form method="post">
                     {% csrf_token %}
-                    {% if user_has_applied %}
-                        <button type="button" class="btn btn-secondary btn-lg" disabled="disabled">
-                            <i class="fas fa-check-circle mr-2"></i>{% trans "Already Applied" %}
-                        </button>
-                    {% elif user_has_resume %}
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-paper-plane mr-2"></i>{% trans "Apply Now" %}
-                        </button>
-                        <button type="button" id="fit-score-btn" data-job-id="{{ job.id }}" class="btn btn-info btn-lg ml-2">
-                            <i class="fas fa-cogs mr-2"></i>{% trans "AI Analysis" %}
-                        </button>
-                        <button type="button" id="ai-info" class="btn btn-outline-info btn-lg ml-2">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
+                    {% if user.is_company %}
                     {% else %}
-                        <button type="button" class="btn btn-secondary btn-lg" disabled="disabled">
-                            <i class="fas fa-exclamation-circle mr-2"></i>{% trans "Apply Now (No Resume Uploaded)" %}
-                        </button>
+                        {% if user_has_applied %}
+                            <button type="button" class="btn btn-secondary btn-lg" disabled="disabled">
+                                <i class="fas fa-check-circle mr-2"></i>{% trans "Already Applied" %}
+                            </button>
+                        {% elif user_has_resume %}
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane mr-2"></i>{% trans "Apply Now" %}
+                            </button>
+                            <button type="button" id="fit-score-btn" data-job-id="{{ job.id }}" class="btn btn-info btn-lg ml-2">
+                                <i class="fas fa-cogs mr-2"></i>{% trans "AI Analysis" %}
+                            </button>
+                            <button type="button" id="ai-info" class="btn btn-outline-info btn-lg ml-2">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        {% else %}
+                            <button type="button" class="btn btn-secondary btn-lg" disabled="disabled">
+                                <i class="fas fa-exclamation-circle mr-2"></i>{% trans "Apply Now (No Resume Uploaded)" %}
+                            </button>
+                        {% endif %}
                     {% endif %}
                 </form>
             </div>
