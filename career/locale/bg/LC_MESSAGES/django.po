@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-18 07:37-0500\n"
+"POT-Creation-Date: 2024-09-04 15:24-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr "Брой служители"
 msgid "Industry"
 msgstr "Индустрия"
 
-#: career/companies/forms.py:18 career/listings/forms.py:18
+#: career/companies/forms.py:18 career/listings/forms.py:23
 #: career/users/forms.py:71
 msgid "Location"
 msgstr "Местоположение"
@@ -132,91 +132,91 @@ msgstr "Въведете отново паролата за потвържден
 msgid "Register"
 msgstr "Регистрация"
 
-#: career/listings/forms.py:15 templates/listings/job_list.html:13
+#: career/listings/forms.py:20 templates/listings/job_list.html:13
 msgid "Job Title"
 msgstr "Заглавие на обявата"
 
-#: career/listings/forms.py:16
+#: career/listings/forms.py:21
 msgid "Job Description"
 msgstr "Описание на обявата"
 
-#: career/listings/forms.py:17
+#: career/listings/forms.py:22
 msgid "Job Requirements"
 msgstr "Изисквания за обявата"
 
-#: career/listings/forms.py:19 templates/listings/job_list.html:32
+#: career/listings/forms.py:24 templates/listings/job_list.html:32
 msgid "Employment Type"
 msgstr "Тип заетост"
 
-#: career/listings/forms.py:20
+#: career/listings/forms.py:25
 msgid "Minimum Salary"
 msgstr "Минимална заплата"
 
-#: career/listings/forms.py:21
+#: career/listings/forms.py:26
 msgid "Maximum Salary"
 msgstr "Максимална заплата"
 
-#: career/listings/forms.py:24
+#: career/listings/forms.py:29
 msgid "Enter the title of the job"
 msgstr "Въведете заглавието на обявата"
 
-#: career/listings/forms.py:25
+#: career/listings/forms.py:30
 msgid "Enter a detailed description of the job"
 msgstr "Въведете подробно описание на обявата"
 
-#: career/listings/forms.py:26
+#: career/listings/forms.py:31
 msgid "Enter the requirements for the job"
 msgstr "Въведете изискванията за обявата"
 
-#: career/listings/forms.py:27
+#: career/listings/forms.py:32
 msgid "Enter the location of the job"
 msgstr "Въведете местоположението на обявата"
 
-#: career/listings/forms.py:28
+#: career/listings/forms.py:33
 msgid "Select the type of employment"
 msgstr "Изберете тип заетост"
 
-#: career/listings/forms.py:29
+#: career/listings/forms.py:34
 msgid "Enter the minimum salary for this job"
 msgstr "Въведете минималната заплата"
 
-#: career/listings/forms.py:30
+#: career/listings/forms.py:35
 msgid "Enter the maximum salary for this job"
 msgstr "Въведете максималната заплата"
 
-#: career/listings/models.py:15
+#: career/listings/models.py:17
 msgid "Full-time"
 msgstr "Пълен работен ден"
 
-#: career/listings/models.py:16
+#: career/listings/models.py:18
 msgid "Part-time"
 msgstr "Непълен работен ден"
 
-#: career/listings/models.py:17
+#: career/listings/models.py:19
 msgid "Contract"
 msgstr "Имейл за контакт"
 
-#: career/listings/models.py:18
+#: career/listings/models.py:20
 msgid "Temporary"
 msgstr "Временна позиция"
 
-#: career/listings/models.py:19
+#: career/listings/models.py:21
 msgid "Intern"
 msgstr "Стаж"
 
-#: career/news/forms.py:12
+#: career/news/forms.py:18
 msgid "Title"
 msgstr "Заглавие"
 
-#: career/news/forms.py:13
+#: career/news/forms.py:19
 msgid "Content"
 msgstr "Съдържание"
 
-#: career/news/forms.py:16
+#: career/news/forms.py:22
 msgid "Enter the title of the news article"
 msgstr "Въведете заглавието на статията"
 
-#: career/news/forms.py:17
+#: career/news/forms.py:23
 msgid "Enter the content of the news article"
 msgstr "Въведете съдържанието на статията"
 
@@ -424,7 +424,7 @@ msgstr "Индустрия:"
 
 #: templates/companies/company_detail.html:20
 #: templates/companies/company_info.html:14
-#: templates/listings/job_detail.html:14
+#: templates/listings/job_detail.html:26
 msgid "Location:"
 msgstr "Местоположение:"
 
@@ -452,8 +452,8 @@ msgid "EIK:"
 msgstr "ЕИК:"
 
 #: templates/companies/company_detail.html:26
-#: templates/listings/job_detail.html:20
-#: templates/resume/resume_display.html:59 templates/users/user_detail.html:26
+#: templates/listings/job_detail.html:17
+#: templates/resume/resume_display.html:55 templates/users/user_detail.html:26
 msgid "Description:"
 msgstr "Описание:"
 
@@ -505,8 +505,8 @@ msgstr "Изтриване"
 
 #: templates/companies/delete_job_listing.html:16
 #: templates/companies/edit_job_listing.html:17
-#: templates/companies/job_create.html:17
-#: templates/news/news_confirm_delete.html:16 templates/news/news_form.html:17
+#: templates/companies/job_create.html:18
+#: templates/news/news_confirm_delete.html:16 templates/news/news_form.html:18
 #: templates/projects/project_create_form.html:12
 #: templates/projects/project_update.html:12
 msgid "Cancel"
@@ -520,11 +520,11 @@ msgstr "Редактиране на обява"
 msgid "Save changes"
 msgstr "Запази промените"
 
-#: templates/companies/job_create.html:7
+#: templates/companies/job_create.html:8
 msgid "Create Job Listing"
 msgstr "Създайте обява"
 
-#: templates/companies/job_create.html:16
+#: templates/companies/job_create.html:17
 msgid "Submit"
 msgstr "Запазване"
 
@@ -562,7 +562,7 @@ msgstr "Добави обява"
 
 #: templates/companies/manage_job_listings.html:20
 #: templates/projects/projects_list.html:25
-#: templates/resume/resume_detail.html:76
+#: templates/resume/resume_detail.html:66
 msgid "Edit"
 msgstr "Редактиране"
 
@@ -611,7 +611,7 @@ msgstr "Започнете вашата кариера"
 
 #: templates/home/index.html:21
 msgid "Craft Your Resume"
-msgstr "Създаване на автобиография"
+msgstr "Създаване на резюме"
 
 #: templates/home/index.html:22
 msgid "Build your student-focused resume"
@@ -633,55 +633,51 @@ msgstr "Кандидатствайте с AI асистент"
 msgid "Smart job matching powered by AI"
 msgstr "Получете информация за обяви за работа чрез AI"
 
-#: templates/listings/job_detail.html:8
+#: templates/listings/job_detail.html:11
 msgid "at"
 msgstr "в"
 
-#: templates/listings/job_detail.html:15
-msgid "Salary Range:"
-msgstr "Диапазон на заплатата:"
-
-#: templates/listings/job_detail.html:16
-msgid "Posted Date:"
-msgstr "Дата на публикуване:"
-
-#: templates/listings/job_detail.html:17
-msgid "Application Deadline:"
-msgstr "Краен срок за кандидатстване:"
-
-#: templates/listings/job_detail.html:22
+#: templates/listings/job_detail.html:19
 msgid "Requirements:"
 msgstr "Изисквания:"
 
-#: templates/listings/job_detail.html:31
+#: templates/listings/job_detail.html:29
+msgid "Salary Range:"
+msgstr "Диапазон на заплатата:"
+
+#: templates/listings/job_detail.html:32
+msgid "Posted Date:"
+msgstr "Дата на публикуване:"
+
+#: templates/listings/job_detail.html:44
 msgid "Already Applied"
 msgstr "Вече сте кандидатствали"
 
-#: templates/listings/job_detail.html:33
+#: templates/listings/job_detail.html:48
 msgid "Apply Now"
 msgstr "Кандидатствайте сега"
 
-#: templates/listings/job_detail.html:34
+#: templates/listings/job_detail.html:51
 msgid "AI Analysis"
 msgstr "AI анализ"
 
-#: templates/listings/job_detail.html:37
+#: templates/listings/job_detail.html:58
 msgid "Apply Now (No Resume Uploaded)"
 msgstr "Нямате създадено резюме"
 
-#: templates/listings/job_detail.html:48
+#: templates/listings/job_detail.html:74
 msgid "Fit Score"
 msgstr "Оценка на съответствие"
 
-#: templates/listings/job_detail.html:54
+#: templates/listings/job_detail.html:81
 msgid "Loading..."
 msgstr "Зареждане..."
 
-#: templates/listings/job_detail.html:66
+#: templates/listings/job_detail.html:94
 msgid "AI Analysis Info"
 msgstr "Информация за AI анализа"
 
-#: templates/listings/job_detail.html:73
+#: templates/listings/job_detail.html:102
 msgid ""
 "Our AI-powered Fit Score feature helps you understand how well your resume "
 "matches the job listing you're interested in. Here's how it works:"
@@ -690,11 +686,11 @@ msgstr ""
 "разберете колко добре вашата автобиография съответства на обявата за работа, "
 "която ви интересува. Ето как работи:"
 
-#: templates/listings/job_detail.html:74
+#: templates/listings/job_detail.html:103
 msgid "Resume Analysis:"
 msgstr "Анализ на автобиографията:"
 
-#: templates/listings/job_detail.html:74
+#: templates/listings/job_detail.html:103
 msgid ""
 "Our system takes the information from your resume, including your summary, "
 "education, experience, skills, languages, projects, and interests."
@@ -702,11 +698,11 @@ msgstr ""
 "Нашата система взема информацията от вашата автобиография, включително "
 "вашето резюме, образование, опит, умения, езици, проекти и интереси."
 
-#: templates/listings/job_detail.html:75
+#: templates/listings/job_detail.html:104
 msgid "Job Listing Analysis:"
 msgstr "Анализ на обява:"
 
-#: templates/listings/job_detail.html:75
+#: templates/listings/job_detail.html:104
 msgid ""
 "We then analyze the details of the job listing, such as the job title, "
 "description, requirements, location, and employment type."
@@ -714,11 +710,11 @@ msgstr ""
 "След това анализираме детайлите на обявата за работа, като заглавие на "
 "позицията, описание, изисквания, местоположение и тип заетост."
 
-#: templates/listings/job_detail.html:76
+#: templates/listings/job_detail.html:105
 msgid "AI Evaluation:"
 msgstr "AI оценка:"
 
-#: templates/listings/job_detail.html:76
+#: templates/listings/job_detail.html:105
 msgid ""
 "Using advanced AI algorithms, we compare your resume to the job listing and "
 "generate a fit score between 0 and 10, with 10 being the best match."
@@ -727,11 +723,11 @@ msgstr ""
 "обявата за работа и генерираме оценка на съответствие между 0 и 10, като 10 "
 "е най-доброто съответствие."
 
-#: templates/listings/job_detail.html:77
+#: templates/listings/job_detail.html:106
 msgid "Results:"
 msgstr "Резултати:"
 
-#: templates/listings/job_detail.html:77
+#: templates/listings/job_detail.html:106
 msgid ""
 "You receive a short analysis explaining the fit and a score to help you "
 "understand how well your profile matches the job."
@@ -739,7 +735,7 @@ msgstr ""
 "Получавате кратък анализ, обясняващ съответствието и оценка, която да ви "
 "помогне да разберете колко добре вашият профил съответства на работата."
 
-#: templates/listings/job_detail.html:78
+#: templates/listings/job_detail.html:107
 msgid ""
 "This feature helps you make informed decisions and target the job "
 "opportunities that best match your qualifications."
@@ -747,15 +743,17 @@ msgstr ""
 "Тази функция ви помага да вземате информирани решения и да насочвате "
 "възможностите за работа, които най-добре съответстват на вашите квалификации."
 
-#: templates/listings/job_detail.html:98 templates/listings/job_detail.html:118
+#: templates/listings/job_detail.html:127
+#: templates/listings/job_detail.html:147
 msgid "Fit Score:"
 msgstr "Оценка на съответствие:"
 
-#: templates/listings/job_detail.html:99 templates/listings/job_detail.html:119
+#: templates/listings/job_detail.html:128
+#: templates/listings/job_detail.html:148
 msgid "Analysis:"
 msgstr "Анализ:"
 
-#: templates/listings/job_detail.html:128
+#: templates/listings/job_detail.html:157
 msgid "An error occurred. Please try again."
 msgstr "Възникна грешка. Моля, опитайте отново."
 
@@ -791,10 +789,6 @@ msgstr "Филтър"
 msgid "Clear"
 msgstr "Изчисти"
 
-#: templates/listings/job_list.html:74
-msgid "Employment Type:"
-msgstr "Тип заетост"
-
 #: templates/news/company_news_list.html:7
 msgid "Your News Articles"
 msgstr "Вашите новинарски статии"
@@ -827,11 +821,11 @@ msgstr "Публикувано от:"
 msgid "Date Posted:"
 msgstr "Дата на публикуване:"
 
-#: templates/news/news_form.html:7
+#: templates/news/news_form.html:8
 msgid "Create News Article"
 msgstr "Създаване на новинарска статия"
 
-#: templates/news/news_form.html:16
+#: templates/news/news_form.html:17
 msgid "Save"
 msgstr "Запази"
 
@@ -857,8 +851,8 @@ msgid "Update Project"
 msgstr "Актуализиране на проекта"
 
 #: templates/projects/projects_list.html:6
-#: templates/resume/resume_detail.html:50
-#: templates/resume/resume_display.html:54 templates/users/user_base.html:31
+#: templates/resume/resume_detail.html:46
+#: templates/resume/resume_display.html:50 templates/users/user_base.html:31
 msgid "Projects"
 msgstr "Проекти"
 
@@ -867,7 +861,7 @@ msgid "Add your projects"
 msgstr "Добавете вашите проекти"
 
 #: templates/projects/projects_list.html:22
-#: templates/resume/resume_display.html:61
+#: templates/resume/resume_display.html:57
 msgid "Technologies:"
 msgstr "Технологии:"
 
@@ -887,7 +881,7 @@ msgstr "Добавяне на образование"
 #: templates/resume/education_list.html:6
 #: templates/resume/resume_detail.html:19
 #: templates/resume/resume_display.html:28
-#: templates/resume/resume_display.html:73 templates/users/user_base.html:25
+#: templates/resume/resume_display.html:69 templates/users/user_base.html:25
 msgid "Education"
 msgstr "Образование"
 
@@ -912,9 +906,9 @@ msgid "No education found."
 msgstr "Не е намерено образование."
 
 #: templates/resume/resume_create_form.html:6
-#: templates/resume/resume_detail.html:82
+#: templates/resume/resume_detail.html:72
 msgid "Create Resume"
-msgstr "Създаване на автобиография"
+msgstr "Създаване на резюме"
 
 #: templates/resume/resume_detail.html:7
 msgid "'s Resume"
@@ -939,16 +933,12 @@ msgstr "Опит"
 msgid "Skills"
 msgstr "Умения"
 
-#: templates/resume/resume_detail.html:63
-msgid "Certifications"
-msgstr "Сертификати"
-
-#: templates/resume/resume_detail.html:69
-#: templates/resume/resume_display.html:85
+#: templates/resume/resume_detail.html:59
+#: templates/resume/resume_display.html:81
 msgid "Interests"
 msgstr "Интереси"
 
-#: templates/resume/resume_detail.html:81
+#: templates/resume/resume_detail.html:71
 msgid "No resume found. Create your resume to showcase your achievements."
 msgstr ""
 "Не е намерено резюме. Създайте своето резме, за да покажете своите "
@@ -966,11 +956,11 @@ msgstr "Имейл:"
 msgid "Phone:"
 msgstr "Телефон:"
 
-#: templates/resume/resume_display.html:44
+#: templates/resume/resume_display.html:40
 msgid "Languages"
 msgstr "Езици"
 
-#: templates/resume/resume_display.html:64
+#: templates/resume/resume_display.html:60
 msgid "Link:"
 msgstr "Линк:"
 
@@ -1055,6 +1045,15 @@ msgstr "Актуализиране на профила"
 #: templates/users/user_update.html:13
 msgid "Current Profile Image"
 msgstr "Профилна снимка"
+
+#~ msgid "Application Deadline:"
+#~ msgstr "Краен срок за кандидатстване:"
+
+#~ msgid "Employment Type:"
+#~ msgstr "Тип заетост"
+
+#~ msgid "Certifications"
+#~ msgstr "Сертификати"
 
 #~ msgid "Select the skills relevant to the resume"
 #~ msgstr "Изберете уменията, които са от значение за резюмето"

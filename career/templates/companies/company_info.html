@@ -23,7 +23,7 @@
                 {% for job in job_listings %}
                 <a href="{% url 'listings:detail' pk=job.pk %}" class="list-group-item list-group-item-action mt-3">
                     <h4 class="list-group-item-heading">{{ job.title }}</h4>
-                    <p class="list-group-item-text">{{ job.description|truncatewords:20 }}</p>
+                    <small>{{ job.get_employment_type_display }}</small>
                 </a>
                 {% endfor %}
             </div>
